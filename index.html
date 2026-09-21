@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0c">
+<title>REPLIKA — Магазин одежды</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --bg: #0a0a0c;
+    --surface: #16161a;
+    --surface-2: #1e1e22;
+    --border: #26262c;
+    --text: #ffffff;
+    --text-2: #888890;
+    --text-3: #56565e;
+    --gold: #d4b06a;
+    --red: #ff4d6d;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body { overflow-y: auto; }
+
+  .app {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: var(--bg);
+    position: relative;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ============ ШАПКА ============ */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 12, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .brand {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+  }
+  .brand::after { content: "."; color: var(--gold); }
+
+  .nav-menu {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+    justify-content: center;
+  }
+  .nav-menu a {
+    color: var(--text-2);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    letter-spacing: 0.2px;
+  }
+  .nav-menu a:hover, .nav-menu a.active { color: #fff; }
+
+  .header-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .header-action {
+    background: none;
+    border: none;
+    color: var(--text-2);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    position: relative;
+    transition: color 0.2s ease;
+    font-family: inherit;
+  }
+  .header-action:hover { color: #fff; }
+  .header-action .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--gold);
+    color: #0a0a0c;
+    font-size: 10px;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+  }
+  .user-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .user-btn:hover { border-color: var(--gold); }
+  .user-btn.logged-in {
+    background: rgba(212, 176, 106, 0.15);
+    border-color: var(--gold);
+  }
+
+  /* ============ ГЕРОЙ ============ */
+  .hero-section {
+    padding: 80px 0 60px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-text .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .hero-text h1 {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -3px;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .hero-text h1 em {
+    font-style: normal;
+    color: var(--text-3);
+  }
+  .hero-text p {
+    font-size: 16px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 460px;
+    margin-bottom: 36px;
+  }
+  .hero-btn {
+    padding: 18px 40px;
+    background: #fff;
+    color: #0a0a0c;
+    border: none;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+    font-family: inherit;
+  }
+  .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.15); }
+
+  .hero-image {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #1a1a20, #2a2a32);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ============ ФИЛЬТРЫ ============ */
+  .filters-section {
+    padding: 40px 0 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .filters-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .filters-count {
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter {
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .filter:hover { border-color: var(--text-3); }
+  .filter.on {
+    background: #fff;
+    color: #0a0a0c;
+    border-color: #fff;
+  }
+
+  /* ============ СЕТКА ============ */
+  .grid-section {
+    padding: 20px 0 80px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .card:hover { transform: translateY(-4px); }
+
+  .card-img {
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .card:hover .card-img img { transform: scale(1.05); }
+
+  .tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--gold);
+    color: #0a0a0c;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 10px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .fav {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    background: rgba(10, 10, 12, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 2;
+    font-family: inherit;
+  }
+  .fav:hover { transform: scale(1.1); }
+  .fav.on { color: var(--red); background: rgba(255, 77, 109, 0.25); }
+
+  .card-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #e8e8ea;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .card-price .old {
+    font-size: 13px;
+    color: var(--text-3);
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  /* ============ ПОДВАЛ ============ */
+  .footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-3);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ============ МОБИЛЬНЫЙ ТАББАР ============ */
+  .mobile-tabbar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 10px 0 14px;
+    z-index: 200;
+    justify-content: space-around;
+  }
+  .mobile-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-3);
+    padding: 4px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    position: relative;
+    font-family: inherit;
+  }
+  .mobile-tab.on { color: #fff; }
+  .mobile-tab.on::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .mobile-tab-icon { font-size: 20px; line-height: 1; }
+
+  /* ============ МОДАЛЬНЫЕ ОКНА ============ */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    scrollbar-width: none;
+  }
+  .modal-card::-webkit-scrollbar { display: none; }
+  .modal.active .modal-card { transform: translateY(0); }
+
+  .modal-close {
+    width: 40px;
+    height: 40px;
+    background: var(--surface);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .modal-close:hover { background: var(--surface-2); }
+
+  .auth-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .auth-sub {
+    font-size: 14px;
+    color: var(--text-2);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-2);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .form-input {
+    width: 100%;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 15px;
+    color: #fff;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--text-3); }
+
+  .form-error {
+    font-size: 12px;
+    color: var(--red);
+    padding: 10px 14px;
+    background: rgba(255, 77, 109, 0.1);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .form-error.show { display: block; }
+
+  .form-submit {
+    width: 100%;
+    padding: 17px;
+    background: #fff;
+    color: #0a0a0c;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
+  .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .form-switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+  .form-switch button {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 0 4px;
+  }
+  .form-skip {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .form-skip button {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+    padding: 8px;
+  }
+
+  /* ============ TOAST ============ */
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #fff;
+    color: #0a0a0c;
+    padding: 14px 24px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 9999;
+    max-width: 90%;
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ============ ЗАСТАВКА ============ */
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: linear-gradient(160deg, #0a0a0c 0%, #14141a 50%, #0a0a0c 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .splash.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+  }
+  .splash-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(212,176,106,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(212,176,106,0.08) 0%, transparent 50%);
+  }
+  .splash-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,12,0.5) 0%, rgba(10,10,12,0.15) 35%, rgba(10,10,12,0.75) 75%, rgba(10,10,12,0.98) 100%);
+  }
+  .splash-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px;
+    max-width: 800px;
+  }
+  .splash-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 24px;
+    align-self: flex-start;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .splash-brand {
+    font-size: 96px;
+    font-weight: 800;
+    letter-spacing: -5px;
+    color: #fff;
+    line-height: 0.95;
+    margin-bottom: 16px;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+  .splash-brand::after { content: "."; color: var(--gold); }
+  .splash-sub {
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 60px;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+  .splash-title {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+  .splash-title em { font-style: normal; color: var(--text-2); }
+  .splash-text {
+    font-size: 15px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 460px;
+    animation: fadeUp 1s ease 0.7s both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============ ЛОАДЕР ============ */
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: #0a0a0c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+  }
+  .loader.hidden { opacity: 0; pointer-events: none; }
+  .loader-logo {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  .loader-logo::after { content: "."; color: var(--gold); }
+  .loader-bar {
+    width: 180px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .loader-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #b8955a, var(--gold), #e8c98a);
+    border-radius: 3px;
+    transition: width 0.25s ease;
+    box-shadow: 0 0 12px rgba(212, 176, 106, 0.6);
+  }
+
+  /* ============ ПУСТОЕ СОСТОЯНИЕ ============ */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-3);
+    grid-column: 1 / -1;
+  }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-title { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  .empty-text { font-size: 13px; color: var(--text-2); }
+
+  /* ============ АДАПТАЦИЯ ============ */
+  @media (max-width: 1024px) {
+    .container { padding: 0 24px; }
+    .header-inner { padding: 0 24px; }
+    .hero-text h1 { font-size: 56px; }
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 16px; }
+    .header-inner { padding: 0 16px; height: 60px; }
+    .nav-menu { display: none; }
+    .brand { font-size: 22px; }
+
+    .hero-section { padding: 30px 0 40px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+    .hero-text h1 { font-size: 42px; letter-spacing: -1.5px; }
+    .hero-text p { font-size: 14px; margin-bottom: 24px; }
+    .hero-btn { padding: 16px 32px; font-size: 13px; }
+
+    .filters-title { font-size: 22px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+    .card-img { border-radius: 12px; margin-bottom: 10px; }
+    .card-name { font-size: 12px; }
+    .card-price { font-size: 14px; }
+    .tag { font-size: 9px; padding: 4px 8px; }
+    .fav { width: 28px; height: 28px; font-size: 13px; }
+
+    .mobile-tabbar { display: flex; }
+    .app { padding-bottom: 80px; }
+
+    .splash-content { padding: 30px; }
+    .splash-brand { font-size: 64px; }
+    .splash-title { font-size: 32px; }
+    .splash-sub { font-size: 11px; margin-bottom: 40px; }
+
+    .modal-card { padding: 24px; border-radius: 20px; }
+    .auth-title { font-size: 24px; }
+
+    .footer { margin-bottom: 70px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-text h1 { font-size: 36px; }
+    .grid { gap: 10px; }
+    .splash-brand { font-size: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ЛОАДЕР -->
+<div class="loader" id="loader">
+  <div class="loader-logo">REPLIKA</div>
+  <div class="loader-bar">
+    <div class="loader-bar-fill" id="loader-fill"></div>
+  </div>
+</div>
+
+<!-- ЗАСТАВКА -->
+<div class="splash" id="splash">
+  <div class="splash-bg"></div>
+  <div class="splash-overlay"></div>
+  <div class="splash-content">
+    <div class="splash-badge">Autumn · Winter 2026</div>
+    <div class="splash-brand">REPLIKA</div>
+    <div class="splash-sub">Fashion Store</div>
+    <div class="splash-title">
+      Новая<br>
+      <em>коллекция.</em>
+    </div>
+    <div class="splash-text">
+      Строгий минимализм, премиальные материалы. Доставка по всей России.
+    </div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- ШАПКА -->
+  <header class="header">
+    <div class="header-inner">
+      <button class="brand" onclick="scrollToTop()">replika</button>
+      <nav class="nav-menu">
+        <a onclick="scrollToCatalog()" class="active">Каталог</a>
+        <a onclick="showToast('Скоро')">Новинки</a>
+        <a onclick="showToast('Скоро')">О нас</a>
+        <a onclick="showToast('Скоро')">Доставка</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-action" onclick="scrollToCatalog()">⌕</button>
+        <button class="header-action" onclick="openFavorites()" id="fav-header-btn">♡</button>
+        <button class="user-btn" id="header-user-btn" onclick="openProfile()">👤</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ГЕРОЙ -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="eyebrow">Осень · Зима 2026</div>
+          <h1>Новая<br><em>коллекция.</em></h1>
+          <p>Строгий минимализм, премиальные материалы и внимание к деталям. Создайте свой образ с REPLIKA.</p>
+          <button class="hero-btn" onclick="scrollToCatalog()">Смотреть каталог →</button>
+        </div>
+        <div class="hero-image" id="hero-image">
+          <img src="images/kr/1.jpg" alt="Новая коллекция" onerror="this.style.display='none';">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- КАТАЛОГ -->
+  <section class="filters-section" id="catalog-section">
+    <div class="container">
+      <div class="filters-header">
+        <div class="filters-title">Каталог</div>
+        <div class="filters-count" id="catalog-count">0 товаров</div>
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter on" data-cat="all">Все</button>
+        <button class="filter" data-cat="outerwear">Верх</button>
+        <button class="filter" data-cat="bottom">Низ</button>
+        <button class="filter" data-cat="shoes">Обувь</button>
+        <button class="filter" data-cat="bags">Сумки</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-section">
+    <div class="container">
+      <div class="grid" id="product-grid"></div>
+    </div>
+  </section>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer">
+    REPLIKA · 2026
+  </footer>
+
+  <!-- МОБИЛЬНЫЙ ТАББАР -->
+  <nav class="mobile-tabbar">
+    <button class="mobile-tab on" onclick="scrollToTop()">
+      <span class="mobile-tab-icon">◉</span>
+      Главная
+    </button>
+    <button class="mobile-tab" onclick="scrollToCatalog()">
+      <span class="mobile-tab-icon">◌</span>
+      Каталог
+    </button>
+    <button class="mobile-tab" onclick="openFavorites()">
+      <span class="mobile-tab-icon">♡</span>
+      Избранное
+    </button>
+    <button class="mobile-tab" onclick="openProfile()">
+      <span class="mobile-tab-icon">○</span>
+      Профиль
+    </button>
+  </nav>
+
+</div>
+
+<!-- МОДАЛКА АВТОРИЗАЦИИ -->
+<div class="modal" id="auth-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAuth()">×</button>
+    <div id="auth-content"></div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ПРОФИЛЯ -->
+<div class="modal" id="profile-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeProfile()">×</button>
+    <div id="profile-content"></div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ТОВАРА -->
+<div class="modal" id="product-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeProduct()">×</button>
+    <div id="product-content"></div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ИЗБРАННОГО -->
+<div class="modal" id="fav-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeFavorites()">×</button>
+    <div id="fav-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  /* ==================== КОНФИГУРАЦИЯ ==================== */
+  const SUPABASE_URL = 'https://upctwpbiwyexwlbvgjhw.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_K7BPgXRkOQDUz26HliazjQ_eRTHSH_x';
+  const TELEGRAM_TOKEN = '8823208690:AAGpL3LerrnzJQlGLOGffr8V2irKtx5UzZs';
+  const TELEGRAM_CHAT_ID = '8162779700';
+
+  let sbClient = null;
+  try {
+    sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  } catch (e) {
+    console.error('Supabase init error:', e);
+  }
+
+  /* ==================== FALLBACK ТОВАРЫ ==================== */
+  const FALLBACK_PRODUCTS = [
+    { id: 1, brand: 'REPLIKA', name: 'Джинсы прямые', price: 4990, old: null, tag: null, category: 'bottom', image: 'images/jis/5.jpg', sizes: ['28','30','32','34','36'], colors: ['#2a2a30'], description: 'Плотный деним, прямой крой, средняя посадка.' },
+    { id: 2, brand: 'REPLIKA', name: 'Джинсы slim', price: 5290, old: 6990, tag: '-25%', category: 'bottom', image: 'images/jis/6.jpg', sizes: ['28','30','32','34'], colors: ['#3a3a40'], description: 'Зауженный крой, эластан, комфортная посадка.' },
+    { id: 3, brand: 'REPLIKA', name: 'Куртка кожаная', price: 24900, old: 32000, tag: '-20%', category: 'outerwear', image: 'images/kr/1.jpg', sizes: ['S','M','L','XL'], colors: ['#1a1a1a'], description: 'Натуральная кожа, металлическая фурнитура.' },
+    { id: 4, brand: 'REPLIKA', name: 'Куртка демисезонная', price: 14900, old: null, tag: 'NEW', category: 'outerwear', image: 'images/kr/2.jpg', sizes: ['S','M','L','XL'], colors: ['#3a3a40', '#8a7a5c'], description: 'Ветрозащитная, с утеплителем, капюшон.' },
+    { id: 5, brand: 'REPLIKA BASIC', name: 'Кроссовки белые', price: 8900, old: null, tag: null, category: 'shoes', image: 'images/ob/3.jpg', sizes: ['38','39','40','41','42'], colors: ['#ffffff'], description: 'Натуральная кожа, резиновая подошва.' },
+    { id: 6, brand: 'REPLIKA BASIC', name: 'Кроссовки тёмные', price: 9900, old: 12900, tag: '-25%', category: 'shoes', image: 'images/ob/4.jpg', sizes: ['38','39','40','41','42','43'], colors: ['#1a1a1a'], description: 'Натуральная кожа, мягкая амортизация.' }
+  ];
+
+  /* ==================== СОСТОЯНИЕ ==================== */
+  let products = FALLBACK_PRODUCTS;
+  let state = {
+    favorites: new Set(),
+    currentProduct: null,
+    selectedSize: null,
+    user: null,
+    orders: [],
+    authMode: 'login',
+    filter: 'all',
+  };
+
+  /* ==================== ЛОАДЕР ==================== */
+  function setLoaderProgress(p) {
+    const fill = document.getElementById('loader-fill');
+    if (fill) fill.style.width = p + '%';
+  }
+
+  function runLoader() {
+    return new Promise((resolve) => {
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15 + 5;
+        if (progress >= 100) {
+          progress = 100;
+          setLoaderProgress(100);
+          clearInterval(interval);
+          setTimeout(resolve, 300);
+        } else {
+          setLoaderProgress(Math.floor(progress));
+        }
+      }, 100);
+    });
+  }
+
+  /* ==================== ЗАГРУЗКА ТОВАРОВ ==================== */
+  async function loadProducts() {
+    try {
+      const response = await fetch('products.json?v=' + Date.now());
+      if (!response.ok) throw new Error('Not found');
+      const data = await response.json();
+      if (data.products && Array.isArray(data.products)) {
+        products = data.products;
+        console.log('✓ Загружено товаров:', products.length);
+      }
+    } catch (e) {
+      console.log('✗ Используем встроенные товары:', e.message);
+    }
+  }
+
+  /* ==================== АВТОРИЗАЦИЯ ==================== */
+  async function checkAuth() {
+    if (!sbClient) return;
+    try {
+      const { data } = await sbClient.auth.getSession();
+      if (data && data.session) {
+        state.user = data.session.user;
+        await loadOrders();
+      }
+    } catch (e) {
+      console.error('Auth check error:', e);
+    }
+  }
+
+  function phoneToEmail(phone) {
+    return phone.replace(/[^0-9]/g, '') + '@replika.local';
+  }
+
+  async function signUp(phone, password) {
+    const { data, error } = await sbClient.auth.signUp({
+      email: phoneToEmail(phone),
+      password: password,
+      options: { data: { phone: phone } }
+    });
+    if (error) throw error;
+    return data;
+  }
+
+  async function signIn(phone, password) {
+    const { data, error } = await sbClient.auth.signInWithPassword({
+      email: phoneToEmail(phone),
+      password: password,
+    });
+    if (error) throw error;
+    return data;
+  }
+
+  async function signOut() {
+    if (!sbClient) return;
+    await sbClient.auth.signOut();
+    state.user = null;
+    state.orders = [];
+    showToast('Вы вышли из аккаунта');
+    updateUserUI();
+    closeProfile();
+  }
+
+  /* ==================== ЗАКАЗЫ ==================== */
+  async function loadOrders() {
+    if (!sbClient || !state.user) return;
+    try {
+      const { data, error } = await sbClient
+        .from('orders')
+        .select('*')
+        .eq('user_id', state.user.id)
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      state.orders = data || [];
+    } catch (e) {
+      console.error('Load orders error:', e);
+      state.orders = [];
+    }
+  }
+
+  async function createOrder(product, size) {
+    if (!sbClient || !state.user) throw new Error('Not authenticated');
+
+    const orderData = {
+      user_id: state.user.id,
+      product_name: product.name,
+      product_price: product.price,
+      product_size: size,
+      product_image: product.image,
+      user_phone: state.user.user_metadata?.phone || state.user.email
+    };
+
+    const { data, error } = await sbClient.from('orders').insert([orderData]).select();
+    if (error) throw error;
+
+    await sendTelegramNotification(orderData);
+    await loadOrders();
+    return data;
+  }
+
+  async function sendTelegramNotification(order) {
+    const phone = state.user?.user_metadata?.phone || state.user?.email || 'не указан';
+    const text = `🛍 Новый заказ!\n\n📦 Товар: ${order.product_name}\n💰 Цена: ${order.product_price.toLocaleString('ru')} ₽\n📏 Размер: ${order.product_size}\n\n👤 Клиент: ${phone}\n⏰ ${new Date().toLocaleString('ru', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+
+    try {
+      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text })
+      });
+      console.log('✓ Уведомление отправлено в Telegram');
+    } catch (e) {
+      console.error('✗ Ошибка отправки в Telegram:', e);
+    }
+  }
+
+  /* ==================== РЕНДЕР СЕТКИ ==================== */
+  function renderGrid() {
+    const el = document.getElementById('product-grid');
+    const countEl = document.getElementById('catalog-count');
+    if (!el) return;
+
+    const filtered = state.filter === 'all' ? products : products.filter(p => p.category === state.filter);
+
+    if (countEl) {
+      countEl.textContent = `${filtered.length} ${plural(filtered.length, 'товар', 'товара', 'товаров')}`;
+    }
+
+    if (filtered.length === 0) {
+      el.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-title">Ничего не найдено</div>
+          <div class="empty-text">Попробуйте другую категорию</div>
+        </div>
+      `;
+      return;
+    }
+
+    el.innerHTML = filtered.map(p => `
+      <div class="card" onclick="openProduct(${p.id})">
+        <div class="card-img">
+          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.background='#242429';this.style.display='none';">
+          ${p.tag ? `<div class="tag">${p.tag}</div>` : ''}
+          <button class="fav ${state.favorites.has(p.id) ? 'on' : ''}" onclick="event.stopPropagation(); toggleFav(${p.id})">${state.favorites.has(p.id) ? '♥' : '♡'}</button>
+        </div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-price">${p.price.toLocaleString('ru')} ₽${p.old ? `<span class="old">${p.old.toLocaleString('ru')}</span>` : ''}</div>
+      </div>
+    `).join('');
+  }
+
+  function applyFilter(cat) {
+    state.filter = cat;
+    document.querySelectorAll('.filter').forEach(f => {
+      f.classList.toggle('on', f.dataset.cat === cat);
+    });
+    renderGrid();
+  }
+
+  /* ==================== КАРТОЧКА ТОВАРА ==================== */
+  function openProduct(id) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    state.currentProduct = p;
+    state.selectedSize = p.sizes[Math.floor(p.sizes.length / 2)] || p.sizes[0];
+
+    const isFav = state.favorites.has(p.id);
+
+    const content = document.getElementById('product-content');
+
+    content.innerHTML = `
+      <div style="aspect-ratio: 4/5; background: var(--surface); border-radius: 16px; overflow: hidden; margin-bottom: 20px;">
+        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.background='#242429';this.style.display='none';">
+      </div>
+
+      <div style="font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 8px;">${p.brand}</div>
+      <div style="font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 14px; line-height: 1.15;">${p.name}</div>
+
+      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;">
+        <span style="font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1.2px;">${p.price.toLocaleString('ru')} ₽</span>
+        ${p.old ? `<span style="font-size: 15px; color: var(--text-3); text-decoration: line-through;">${p.old.toLocaleString('ru')} ₽</span>` : ''}
+      </div>
+
+      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-2); font-weight: 700; margin-bottom: 10px;">Размер</div>
+      <div id="size-row" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;">
+        ${p.sizes.map(s => `
+          <button class="size ${s === state.selectedSize ? 'on' : ''}" onclick="selectSize('${s}')" style="flex: 1; min-width: 48px; padding: 12px 0; text-align: center; background: ${s === state.selectedSize ? '#fff' : 'var(--surface)'}; color: ${s === state.selectedSize ? '#0a0a0c' : 'var(--text-2)'}; border: 1px solid ${s === state.selectedSize ? '#fff' : 'var(--border)'}; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;">${s}</button>
+        `).join('')}
+      </div>
+
+      <div style="font-size: 13px; color: var(--text-2); line-height: 1.6; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border);">${p.description || ''}</div>
+
+      <button class="form-submit" onclick="handleOrder()" id="order-submit-btn">Забронировать</button>
+      <div class="form-skip">
+        <button onclick="toggleFav(${p.id}); syncProductFav(${p.id});" id="product-fav-btn">${isFav ? '♥ Убрать из избранного' : '♡ Добавить в избранное'}</button>
+      </div>
+    `;
+
+    document.getElementById('product-modal').classList.add('active');
+  }
+
+  function syncProductFav(id) {
+    const isFav = state.favorites.has(id);
+    const btn = document.getElementById('product-fav-btn');
+    if (btn) btn.textContent = isFav ? '♥ Убрать из избранного' : '♡ Добавить в избранное';
+  }
+
+  function closeProduct() {
+    document.getElementById('product-modal').classList.remove('active');
+  }
+
+  function selectSize(size) {
+    state.selectedSize = size;
+    document.querySelectorAll('#size-row .size').forEach(btn => {
+      const isOn = btn.textContent === size;
+      btn.style.background = isOn ? '#fff' : 'var(--surface)';
+      btn.style.color = isOn ? '#0a0a0c' : 'var(--text-2)';
+      btn.style.borderColor = isOn ? '#fff' : 'var(--border)';
+    });
+  }
+
+  function handleOrder() {
+    if (!state.user) {
+      closeProduct();
+      showToast('Войдите, чтобы забронировать');
+      openAuth('login');
+      return;
+    }
+    const content = document.getElementById('product-content');
+    const p = state.currentProduct;
+    content.innerHTML = `
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="font-size: 56px; margin-bottom: 16px;">📦</div>
+        <div class="auth-title" style="font-size: 24px;">Подтвердить заказ?</div>
+        <div class="auth-sub">Проверьте детали перед отправкой</div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 24px;">
+        <div style="display: flex; gap: 14px; margin-bottom: 14px;">
+          <div style="width: 60px; height: 80px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--surface-2);">
+            <img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px;">${p.brand}</div>
+            <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px;">${p.name}</div>
+            <div style="font-size: 12px; color: var(--text-3);">Размер: ${state.selectedSize}</div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border);">
+          <span style="font-size: 13px; color: var(--text-2);">Итого</span>
+          <span style="font-size: 20px; font-weight: 800; color: #fff;">${p.price.toLocaleString('ru')} ₽</span>
+        </div>
+      </div>
+
+      <button class="form-submit" onclick="confirmOrder()" id="confirm-btn">Забронировать</button>
+      <div class="form-skip"><button onclick="closeProduct()">Отмена</button></div>
+    `;
+  }
+
+  async function confirmOrder() {
+    const btn = document.getElementById('confirm-btn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+
+    try {
+      await createOrder(state.currentProduct, state.selectedSize);
+      closeProduct();
+      showToast('✓ Заказ отправлен!');
+      setTimeout(() => openProfile(), 800);
+    } catch (e) {
+      console.error('Order error:', e);
+      showToast('Ошибка: ' + (e.message || 'не удалось отправить'));
+      btn.disabled = false;
+      btn.textContent = 'Забронировать';
+    }
+  }
+
+  /* ==================== ИЗБРАННОЕ ==================== */
+  function toggleFav(id) {
+    if (state.favorites.has(id)) {
+      state.favorites.delete(id);
+      showToast('Удалено из избранного');
+    } else {
+      state.favorites.add(id);
+      showToast('Добавлено в избранное ♥');
+    }
+    renderGrid();
+  }
+
+  function openFavorites() {
+    renderFavorites();
+    document.getElementById('fav-modal').classList.add('active');
+  }
+
+  function closeFavorites() {
+    document.getElementById('fav-modal').classList.remove('active');
+  }
+
+  function renderFavorites() {
+    const el = document.getElementById('fav-content');
+    const favItems = products.filter(p => state.favorites.has(p.id));
+
+    if (favItems.length === 0) {
+      el.innerHTML = `
+        <div class="auth-title">Избранное</div>
+        <div class="auth-sub">0 товаров</div>
+        <div style="text-align: center; padding: 40px 20px; color: var(--text-3);">
+          <div style="font-size: 56px; margin-bottom: 16px;">♡</div>
+          <div style="font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px;">Пока пусто</div>
+          <div style="font-size: 13px; color: var(--text-2);">Сохраняйте товары, чтобы вернуться к ним позже</div>
+        </div>
+      `;
+      return;
+    }
+
+    el.innerHTML = `
+      <div class="auth-title">Избранное</div>
+      <div class="auth-sub">${favItems.length} ${plural(favItems.length, 'товар', 'товара', 'товаров')}</div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        ${favItems.map(p => `
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; display: flex; gap: 12px; align-items: center; cursor: pointer;" onclick="closeFavorites(); openProduct(${p.id});">
+            <div style="width: 60px; height: 80px; background: var(--surface-2); border-radius: 10px; overflow: hidden; flex-shrink: 0;">
+              <img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">${p.name}</div>
+              <div style="font-size: 14px; font-weight: 700; color: var(--gold);">${p.price.toLocaleString('ru')} ₽</div>
+            </div>
+            <button onclick="event.stopPropagation(); toggleFav(${p.id}); renderFavorites();" style="background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; padding: 8px; font-family: inherit;">♥</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  /* ==================== ПРОФИЛЬ ==================== */
+  function openProfile() {
+    renderProfile();
+    document.getElementById('profile-modal').classList.add('active');
+  }
+
+  function closeProfile() {
+    document.getElementById('profile-modal').classList.remove('active');
+  }
+
+  function renderProfile() {
+    const el = document.getElementById('profile-content');
+
+    if (!state.user) {
+      el.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+          <div style="font-size: 56px; color: var(--text-3); margin-bottom: 20px;">👤</div>
+          <div style="font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.8px;">Войдите в аккаунт</div>
+          <div style="font-size: 13px; color: var(--text-2); line-height: 1.5; max-width: 280px; margin: 0 auto 28px;">Чтобы бронировать товары и видеть историю заказов</div>
+          <button class="form-submit" onclick="closeProfile(); openAuth('login');" style="margin-bottom: 10px;">Войти</button>
+          <button class="form-submit" onclick="closeProfile(); openAuth('signup');" style="background: transparent; border: 1.5px solid var(--border); color: #fff;">Создать аккаунт</button>
+        </div>
+      `;
+      return;
+    }
+
+    const phone = state.user.user_metadata?.phone || 'Пользователь';
+    const initial = (phone.replace(/[^0-9]/g, '') || 'U').slice(-2, -1) || 'U';
+
+    const ordersHtml = state.orders.length === 0
+      ? `<div style="text-align: center; padding: 30px 20px; color: var(--text-3);"><div style="font-size: 42px; margin-bottom: 12px;">📦</div><div style="font-size: 13px;">Заказов пока нет</div></div>`
+      : state.orders.map(o => {
+          const statusText = { new: 'Новый', confirmed: 'Подтверждён', cancelled: 'Отменён' }[o.status] || 'Новый';
+          const statusClass = o.status || 'new';
+          return `
+            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; display: flex; gap: 12px; margin-bottom: 10px;">
+              <div style="width: 60px; height: 80px; background: var(--surface-2); border-radius: 10px; overflow: hidden; flex-shrink: 0;">
+                <img src="${o.product_image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; line-height: 1.3;">${o.product_name}</div>
+                  <div style="font-size: 11px; color: var(--text-3);">Размер: ${o.product_size} · ${new Date(o.created_at).toLocaleDateString('ru')}</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 14px; font-weight: 700; color: #fff;">${o.product_price.toLocaleString('ru')} ₽</span>
+                  <span style="font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; background: ${statusClass === 'new' ? 'rgba(212,176,106,0.15)' : statusClass === 'confirmed' ? 'rgba(78,205,196,0.15)' : 'rgba(255,77,109,0.15)'}; color: ${statusClass === 'new' ? 'var(--gold)' : statusClass === 'confirmed' ? '#4ecdc4' : 'var(--red)'};">${statusText}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+    el.innerHTML = `
+      <div style="text-align: center; margin-bottom: 24px;">
+        <div style="width: 70px; height: 70px; background: var(--surface); border: 1.5px solid var(--gold); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--gold); font-family: Georgia, serif; font-style: italic;">${initial}</div>
+        <div style="font-size: 18px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px;">${phone}</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px;">
+        <div style="background: var(--surface); padding: 14px 8px; text-align: center;">
+          <div style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 3px;">${state.orders.length}</div>
+          <div style="font-size: 10px; color: var(--text-2);">Заказов</div>
+        </div>
+        <div style="background: var(--surface); padding: 14px 8px; text-align: center;">
+          <div style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 3px;">${state.favorites.size}</div>
+          <div style="font-size: 10px; color: var(--text-2);">В избранном</div>
+        </div>
+        <div style="background: var(--surface); padding: 14px 8px; text-align: center;">
+          <div style="font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 3px;">0</div>
+          <div style="font-size: 10px; color: var(--text-2);">Бонусов</div>
+        </div>
+      </div>
+
+      <div style="font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-3); font-weight: 700; padding: 4px 0 12px;">Мои заказы</div>
+      ${ordersHtml}
+
+      <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
+        <button class="form-submit" onclick="signOut()" style="background: transparent; border: 1.5px solid var(--border); color: var(--red);">Выйти из аккаунта</button>
+      </div>
+    `;
+  }
+
+  /* ==================== АВТОРИЗАЦИЯ ==================== */
+  function openAuth(mode = 'login') {
+    state.authMode = mode;
+    renderAuthForm();
+    document.getElementById('auth-modal').classList.add('active');
+  }
+
+  function closeAuth() {
+    document.getElementById('auth-modal').classList.remove('active');
+  }
+
+  function renderAuthForm() {
+    const content = document.getElementById('auth-content');
+    const isLogin = state.authMode === 'login';
+
+    content.innerHTML = `
+      <div class="auth-title">${isLogin ? 'Вход' : 'Регистрация'}</div>
+      <div class="auth-sub">${isLogin ? 'Войдите, чтобы бронировать товары' : 'Создайте аккаунт за 30 секунд'}</div>
+
+      <div class="form-error" id="auth-error"></div>
+
+      <div class="form-group">
+        <label class="form-label">Номер телефона</label>
+        <input type="tel" class="form-input" id="auth-phone" placeholder="+7 999 123-45-67" autocomplete="tel">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input type="password" class="form-input" id="auth-password" placeholder="Минимум 6 символов" autocomplete="${isLogin ? 'current-password' : 'new-password'}">
+      </div>
+
+      <button class="form-submit" onclick="submitAuth()" id="auth-submit">${isLogin ? 'Войти' : 'Создать аккаунт'}</button>
+
+      <div class="form-switch">
+        ${isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+        <button onclick="switchAuthMode()">${isLogin ? 'Создать' : 'Войти'}</button>
+      </div>
+
+      <div class="form-skip">
+        <button onclick="closeAuth()">Продолжить без входа</button>
+      </div>
+    `;
+  }
+
+  function switchAuthMode() {
+    state.authMode = state.authMode === 'login' ? 'signup' : 'login';
+    renderAuthForm();
+  }
+
+  async function submitAuth() {
+    const phone = document.getElementById('auth-phone').value.trim();
+    const password = document.getElementById('auth-password').value;
+    const errorEl = document.getElementById('auth-error');
+    const btn = document.getElementById('auth-submit');
+
+    errorEl.classList.remove('show');
+
+    if (!phone || phone.replace(/[^0-9]/g, '').length < 10) {
+      errorEl.textContent = 'Введите корректный номер телефона';
+      errorEl.classList.add('show');
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      errorEl.textContent = 'Пароль минимум 6 символов';
+      errorEl.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = state.authMode === 'login' ? 'Входим...' : 'Создаём...';
+
+    try {
+      if (state.authMode === 'login') {
+        await signIn(phone, password);
+        showToast('✓ Вы вошли');
+      } else {
+        await signUp(phone, password);
+        showToast('✓ Аккаунт создан');
+      }
+
+      await checkAuth();
+      updateUserUI();
+      closeAuth();
+      setTimeout(() => openProfile(), 400);
+    } catch (e) {
+      console.error('Auth error:', e);
+      let msg = 'Ошибка. Попробуйте ещё раз';
+      if (e.message?.toLowerCase().includes('invalid login')) msg = 'Неверный номер или пароль';
+      if (e.message?.toLowerCase().includes('already registered')) msg = 'Этот номер уже зарегистрирован';
+      if (e.message?.toLowerCase().includes('password')) msg = 'Пароль слишком короткий';
+      errorEl.textContent = msg;
+      errorEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = state.authMode === 'login' ? 'Войти' : 'Создать аккаунт';
+    }
+  }
+
+  function updateUserUI() {
+    const btn = document.getElementById('header-user-btn');
+    if (!btn) return;
+
+    if (state.user) {
+      const phone = state.user.user_metadata?.phone || '';
+      const initial = (phone.replace(/[^0-9]/g, '') || 'U').slice(-2, -1) || 'U';
+      btn.textContent = initial.toUpperCase();
+      btn.classList.add('logged-in');
+    } else {
+      btn.textContent = '👤';
+      btn.classList.remove('logged-in');
+    }
+  }
+
+  /* ==================== НАВИГАЦИЯ ==================== */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollToCatalog() {
+    const el = document.getElementById('catalog-section');
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }
+
+  /* ==================== ВСПОМОГАТЕЛЬНЫЕ ==================== */
+  function plural(n, one, few, many) {
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return one;
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return few;
+    return many;
+  }
+
+  let toastTimer;
+  function showToast(text) {
+    const t = document.getElementById('toast');
+    t.textContent = text;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  /* ==================== ИНИЦИАЛИЗАЦИЯ ==================== */
+  async function init() {
+    document.querySelectorAll('.filter').forEach(f => {
+      f.addEventListener('click', () => applyFilter(f.dataset.cat));
+    });
+
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', (e) => {
+        if (e.target === m) m.classList.remove('active');
+      });
+    });
+
+    await runLoader();
+    await loadProducts();
+    await checkAuth();
+
+    renderGrid();
+    updateUserUI();
+
+    const loader = document.getElementById('loader');
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+
+    setTimeout(() => {
+      const splash = document.getElementById('splash');
+      splash.classList.add('hidden');
+      setTimeout(() => splash.remove(), 700);
+    }, 2500);
+  }
+
+  init();
+</script>
+
+</body>
+</html>

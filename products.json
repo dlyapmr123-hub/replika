@@ -1,0 +1,83 @@
+{
+  "updated": "2026-09-21",
+  "products": [
+    {
+      "id": 1,
+      "brand": "REPLIKA",
+      "name": "Джинсы прямые",
+      "price": 4990,
+      "old": null,
+      "tag": null,
+      "category": "bottom",
+      "image": "images/jis/5.jpg",
+      "sizes": ["28", "30", "32", "34", "36"],
+      "colors": ["#2a2a30"],
+      "description": "Плотный деним, прямой крой, средняя посадка."
+    },
+    {
+      "id": 2,
+      "brand": "REPLIKA",
+      "name": "Джинсы slim",
+      "price": 5290,
+      "old": 6990,
+      "tag": "-25%",
+      "category": "bottom",
+      "image": "images/jis/6.jpg",
+      "sizes": ["28", "30", "32", "34"],
+      "colors": ["#3a3a40"],
+      "description": "Зауженный крой, эластан, комфортная посадка."
+    },
+    {
+      "id": 3,
+      "brand": "REPLIKA",
+      "name": "Куртка кожаная",
+      "price": 24900,
+      "old": 32000,
+      "tag": "-20%",
+      "category": "outerwear",
+      "image": "images/kr/1.jpg",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#1a1a1a"],
+      "description": "Натуральная кожа, металлическая фурнитура."
+    },
+    {
+      "id": 4,
+      "brand": "REPLIKA",
+      "name": "Куртка демисезонная",
+      "price": 14900,
+      "old": null,
+      "tag": "NEW",
+      "category": "outerwear",
+      "image": "images/kr/2.jpg",
+      "sizes": ["S", "M", "L", "XL"],
+      "colors": ["#3a3a40", "#8a7a5c"],
+      "description": "Ветрозащитная, с утеплителем, капюшон."
+    },
+    {
+      "id": 5,
+      "brand": "REPLIKA BASIC",
+      "name": "Кроссовки белые",
+      "price": 8900,
+      "old": null,
+      "tag": null,
+      "category": "shoes",
+      "image": "images/ob/3.jpg",
+      "sizes": ["38", "39", "40", "41", "42"],
+      "colors": ["#ffffff"],
+      "description": "Натуральная кожа, резиновая подошва."
+    },
+    {
+      "id": 6,
+      "brand": "REPLIKA BASIC",
+      "name": "Кроссовки тёмные",
+      "price": 9900,
+      "old": 12900,
+      "tag": "-25%",
+      "category": "shoes",
+      "image": "images/ob/4.jpg",
+      "sizes": ["38", "39", "40", "41", "42", "43"],
+      "colors": ["#1a1a1a"],
+      "description": "Натуральная кожа, мягкая амортизация."
+    }
+  ]
+}
