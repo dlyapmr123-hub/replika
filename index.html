@@ -820,11 +820,8 @@
     <div class="header-inner">
       <button class="brand" onclick="scrollToTop()">replika</button>
       <nav class="nav-menu">
-        <a onclick="scrollToCatalog()" class="active">Каталог</a>
-        <a onclick="showToast('Скоро')">Новинки</a>
-        <a onclick="showToast('Скоро')">О нас</a>
-        <a onclick="showToast('Скоро')">Доставка</a>
-      </nav>
+  <a onclick="scrollToCatalog()" class="active">Каталог</a>
+</nav>
       <div class="header-actions">
         <button class="header-action" onclick="scrollToCatalog()">⌕</button>
         <button class="header-action" onclick="openFavorites()" id="fav-header-btn">♡</button>
@@ -939,8 +936,8 @@
 
 <script>
   /* ==================== КОНФИГУРАЦИЯ ==================== */
-  const SUPABASE_URL = 'https://upctwpbiwyexwlbvgjhw.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_K7BPgXRkOQDUz26HliazjQ_eRTHSH_x';
+  const SUPABASE_URL = 'https://ejnuygaxiiqhkxmferts.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Da_7jup1twR4NcjAoo-Rpg_xH-CbTVw';
   const TELEGRAM_TOKEN = '8823208690:AAGpL3LerrnzJQlGLOGffr8V2irKtx5UzZs';
   const TELEGRAM_CHAT_ID = '8162779700';
 
@@ -1026,8 +1023,8 @@
   }
 
   function phoneToEmail(phone) {
-    return phone.replace(/[^0-9]/g, '') + '@replika.local';
-  }
+  return phone.replace(/[^0-9]/g, '') + '@gmail.com';
+}
 
   async function signUp(phone, password) {
     const { data, error } = await sbClient.auth.signUp({
