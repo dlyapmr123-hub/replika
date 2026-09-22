@@ -31,12 +31,39 @@
 
   body { overflow-y: auto; }
 
+  /* Белый скроллбар */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #0a0a0c; }
+  ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #0a0a0c;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #e0e0e0; }
+  * { scrollbar-width: thin; scrollbar-color: #ffffff #0a0a0c; }
+
+  /* Запрет перетаскивания картинок */
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+  }
+
+  /* Возвращаем pointer-events только для кликабельных изображений */
+  .clickable-img { pointer-events: auto; }
+
   .app {
     width: 100%;
     min-height: 100vh;
     margin: 0 auto;
     background: var(--bg);
-    position: relative;
   }
 
   .container {
@@ -73,7 +100,6 @@
     letter-spacing: -1px;
     color: #fff;
     cursor: pointer;
-    flex-shrink: 0;
     background: none;
     border: none;
     font-family: inherit;
@@ -81,57 +107,49 @@
   }
   .brand::after { content: "."; color: var(--gold); }
 
-  .nav-menu {
+  .gender-nav {
     display: flex;
-    gap: 32px;
+    gap: 8px;
     flex: 1;
     justify-content: center;
   }
-  .nav-menu a {
+  .gender-btn {
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
     color: var(--text-2);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    background: transparent;
+    border: 1px solid var(--border);
     cursor: pointer;
-    transition: color 0.2s ease;
-    letter-spacing: 0.2px;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    letter-spacing: 0.3px;
   }
-  .nav-menu a:hover, .nav-menu a.active { color: #fff; }
+  .gender-btn:hover { color: #fff; border-color: var(--text-3); }
+  .gender-btn.on {
+    background: #fff;
+    color: #0a0a0c;
+    border-color: #fff;
+  }
 
   .header-actions {
     display: flex;
     gap: 20px;
     align-items: center;
-    flex-shrink: 0;
   }
   .header-action {
     background: none;
     border: none;
     color: var(--text-2);
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     padding: 8px;
-    position: relative;
     transition: color 0.2s ease;
     font-family: inherit;
   }
   .header-action:hover { color: #fff; }
-  .header-action .badge {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background: var(--gold);
-    color: #0a0a0c;
-    font-size: 10px;
-    font-weight: 800;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 5px;
-  }
+
   .user-btn {
     width: 38px;
     height: 38px;
@@ -154,73 +172,67 @@
     border-color: var(--gold);
   }
 
-  /* ============ ГЕРОЙ ============ */
-  .hero-section {
-    padding: 80px 0 60px;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+  /* ============ БАННЕР ============ */
+  .banner {
+    position: relative;
+    height: 460px;
+    overflow: hidden;
+    display: flex;
     align-items: center;
   }
-
-  .hero-text .eyebrow {
+  .banner-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('main.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.45) blur(2px);
+    transform: scale(1.05);
+  }
+  .banner-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,12,0.3) 0%, rgba(10,10,12,0.6) 60%, rgba(10,10,12,1) 100%);
+  }
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+  }
+  .banner-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--gold);
+    border-radius: 100px;
     font-size: 11px;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
     font-weight: 700;
     margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(10,10,12,0.3);
   }
-  .hero-text h1 {
-    font-size: 72px;
+  .banner h1 {
+    font-size: 64px;
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -3px;
     color: #fff;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+    max-width: 700px;
   }
-  .hero-text h1 em {
-    font-style: normal;
-    color: var(--text-3);
-  }
-  .hero-text p {
-    font-size: 16px;
-    color: var(--text-2);
+  .banner h1 em { font-style: normal; color: var(--text-2); }
+  .banner p {
+    font-size: 15px;
+    color: #c8c8d0;
     line-height: 1.6;
     max-width: 460px;
-    margin-bottom: 36px;
-  }
-  .hero-btn {
-    padding: 18px 40px;
-    background: #fff;
-    color: #0a0a0c;
-    border: none;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    letter-spacing: 0.3px;
-    font-family: inherit;
-  }
-  .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.15); }
-
-  .hero-image {
-    aspect-ratio: 4/5;
-    background: linear-gradient(135deg, #1a1a20, #2a2a32);
-    border-radius: 24px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--border);
-  }
-  .hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
   }
 
   /* ============ ФИЛЬТРЫ ============ */
@@ -245,6 +257,14 @@
     color: var(--text-2);
   }
 
+  .filters-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
   .filters {
     display: flex;
     gap: 10px;
@@ -259,7 +279,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     font-family: inherit;
   }
   .filter:hover { border-color: var(--text-3); }
@@ -269,11 +289,80 @@
     border-color: #fff;
   }
 
-  /* ============ СЕТКА ============ */
-  .grid-section {
-    padding: 20px 0 80px;
+  .sort-menu {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .sort-btn {
+    padding: 10px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s ease;
+  }
+  .sort-btn:hover { border-color: var(--gold); }
+  .sort-arrow {
+    font-size: 10px;
+    color: var(--gold);
+    transition: transform 0.25s ease;
+  }
+  .sort-menu.open .sort-arrow { transform: rotate(180deg); }
+
+  .sort-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px;
+    min-width: 200px;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+  .sort-menu.open .sort-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .sort-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 10px;
+    font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .sort-dropdown button:hover {
+    background: var(--surface-2);
+    color: #fff;
+  }
+  .sort-dropdown button.active {
+    color: var(--gold);
+    background: rgba(212,176,106,0.08);
   }
 
+  /* ============ СЕТКА ============ */
+  .grid-section { padding: 20px 0 80px; }
   .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -283,7 +372,21 @@
   .card {
     cursor: pointer;
     transition: transform 0.3s ease;
+    animation: cardAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+
+  /* Плавное появление из центра */
+  @keyframes cardAppear {
+    from {
+      opacity: 0;
+      transform: scale(0.92) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
   .card:hover { transform: translateY(-4px); }
 
   .card-img {
@@ -338,6 +441,7 @@
     transition: all 0.2s ease;
     z-index: 2;
     font-family: inherit;
+    pointer-events: auto;
   }
   .fav:hover { transform: scale(1.1); }
   .fav.on { color: var(--red); background: rgba(255, 77, 109, 0.25); }
@@ -399,9 +503,8 @@
     background: none;
     border: none;
     cursor: pointer;
-    transition: color 0.2s ease;
-    position: relative;
     font-family: inherit;
+    position: relative;
   }
   .mobile-tab.on { color: #fff; }
   .mobile-tab.on::before {
@@ -421,7 +524,7 @@
   .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
@@ -432,10 +535,7 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
-  .modal.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .modal.active { opacity: 1; pointer-events: auto; }
 
   .modal-card {
     background: var(--bg);
@@ -453,10 +553,110 @@
   .modal-card::-webkit-scrollbar { display: none; }
   .modal.active .modal-card { transform: translateY(0); }
 
-  .modal-close {
+  .modal-wide .modal-card { max-width: 700px; }
+
+  .modal-product .modal-card {
+    max-width: 1100px;
+    padding: 0;
+    overflow: hidden;
+    max-height: 92vh;
+  }
+
+  .product-grid-modal {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    min-height: 600px;
+  }
+
+  .product-photo {
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-gallery {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-gallery-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s ease;
+  }
+  .photo-gallery-track img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: block;
+  }
+  .photo-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+  }
+  .photo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    pointer-events: auto;
+  }
+  .photo-dot.on {
+    background: #fff;
+    width: 24px;
+    border-radius: 4px;
+  }
+  .photo-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    background: var(--surface);
+    background: rgba(10, 10, 12, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 3;
+    border: none;
+    font-family: inherit;
+    transition: background 0.2s ease;
+    pointer-events: auto;
+  }
+  .photo-arrow:hover { background: rgba(10, 10, 12, 0.85); }
+  .photo-arrow.prev { left: 12px; }
+  .photo-arrow.next { right: 12px; }
+
+  .product-details {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 92vh;
+  }
+  .product-details::-webkit-scrollbar { width: 0; }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: rgba(10, 10, 12, 0.7);
+    backdrop-filter: blur(10px);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -465,12 +665,13 @@
     color: #fff;
     border: 1px solid var(--border);
     cursor: pointer;
-    margin-bottom: 24px;
-    transition: all 0.2s ease;
     font-family: inherit;
+    z-index: 10;
+    pointer-events: auto;
   }
-  .modal-close:hover { background: var(--surface-2); }
+  .modal-close:hover { background: rgba(10, 10, 12, 0.9); }
 
+  /* ============ ФОРМЫ ============ */
   .auth-title {
     font-size: 28px;
     font-weight: 700;
@@ -534,8 +735,8 @@
     margin-top: 8px;
     transition: all 0.2s ease;
   }
-  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
-  .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .form-submit:hover { transform: translateY(-2px); }
+  .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .form-switch {
     text-align: center;
@@ -568,6 +769,147 @@
     padding: 8px;
   }
 
+  /* ============ КАРТОЧКА ТОВАРА ============ */
+  .prod-brand {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .prod-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -1.2px;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .prod-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .prod-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1.4px;
+  }
+  .prod-old {
+    font-size: 16px;
+    color: var(--text-3);
+    text-decoration: line-through;
+  }
+  .size-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-2);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .size-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .size-btn {
+    flex: 1;
+    min-width: 50px;
+    padding: 14px 0;
+    text-align: center;
+    background: var(--surface);
+    color: var(--text-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .size-btn.on {
+    background: #fff;
+    color: #0a0a0c;
+    border-color: #fff;
+  }
+  .prod-desc {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ============ РЕКОМЕНДУЕМЫЕ ТОВАРЫ ============ */
+  .recommended-section {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .recommended-title {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-2);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .recommended-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+    margin: 0 -40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .recommended-scroll::-webkit-scrollbar { display: none; }
+
+  .recommended-card {
+    flex: 0 0 180px;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  .recommended-card:hover { transform: translateY(-3px); }
+  .recommended-img {
+    aspect-ratio: 3/4;
+    background: var(--surface);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+  .recommended-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .recommended-card:hover .recommended-img img { transform: scale(1.06); }
+  .recommended-name {
+    font-size: 12px;
+    color: #e8e8ea;
+    font-weight: 500;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .recommended-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
   /* ============ TOAST ============ */
   .toast {
     position: fixed;
@@ -590,99 +932,6 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ============ ЗАСТАВКА ============ */
-  .splash {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: linear-gradient(160deg, #0a0a0c 0%, #14141a 50%, #0a0a0c 100%);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .splash.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(1.05);
-  }
-  .splash-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(212,176,106,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(212,176,106,0.08) 0%, transparent 50%);
-  }
-  .splash-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,12,0.5) 0%, rgba(10,10,12,0.15) 35%, rgba(10,10,12,0.75) 75%, rgba(10,10,12,0.98) 100%);
-  }
-  .splash-content {
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 60px;
-    max-width: 800px;
-  }
-  .splash-badge {
-    display: inline-block;
-    padding: 8px 18px;
-    border: 1px solid var(--gold);
-    border-radius: 100px;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-    margin-bottom: 24px;
-    align-self: flex-start;
-    animation: fadeUp 0.8s ease 0.2s both;
-  }
-  .splash-brand {
-    font-size: 96px;
-    font-weight: 800;
-    letter-spacing: -5px;
-    color: #fff;
-    line-height: 0.95;
-    margin-bottom: 16px;
-    animation: fadeUp 1s ease 0.4s both;
-  }
-  .splash-brand::after { content: "."; color: var(--gold); }
-  .splash-sub {
-    font-size: 13px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 60px;
-    animation: fadeUp 1s ease 0.5s both;
-  }
-  .splash-title {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -2px;
-    color: #fff;
-    line-height: 1.05;
-    margin-bottom: 16px;
-    animation: fadeUp 1s ease 0.6s both;
-  }
-  .splash-title em { font-style: normal; color: var(--text-2); }
-  .splash-text {
-    font-size: 15px;
-    color: var(--text-2);
-    line-height: 1.6;
-    max-width: 460px;
-    animation: fadeUp 1s ease 0.7s both;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
   /* ============ ЛОАДЕР ============ */
   .loader {
     position: fixed;
@@ -697,18 +946,18 @@
   }
   .loader.hidden { opacity: 0; pointer-events: none; }
   .loader-logo {
-    font-size: 42px;
+    font-size: 24px;
     font-weight: 800;
-    letter-spacing: -2px;
+    letter-spacing: -0.8px;
     color: #fff;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
   .loader-logo::after { content: "."; color: var(--gold); }
   .loader-bar {
-    width: 180px;
-    height: 3px;
+    width: 120px;
+    height: 2px;
     background: var(--border);
-    border-radius: 3px;
+    border-radius: 2px;
     overflow: hidden;
     position: relative;
   }
@@ -719,9 +968,99 @@
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, #b8955a, var(--gold), #e8c98a);
-    border-radius: 3px;
+    border-radius: 2px;
     transition: width 0.25s ease;
-    box-shadow: 0 0 12px rgba(212, 176, 106, 0.6);
+  }
+
+  /* ============ ПОИСК ============ */
+  .search-box-big {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .search-box-big .search-icon { font-size: 22px; color: var(--text-3); }
+  .search-box-big input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    font-family: inherit;
+  }
+  .search-box-big input::placeholder { color: var(--text-3); }
+
+  .search-popular {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 700;
+    padding: 8px 0 14px;
+  }
+
+  .search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .search-tag {
+    padding: 10px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 14px;
+    color: var(--text-2);
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+  .search-tag:hover { border-color: var(--text-3); color: #fff; }
+
+  .search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .search-result-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    align-items: center;
+  }
+  .search-result-item:hover { border-color: var(--gold); }
+  .search-result-img {
+    width: 90px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--surface-2);
+  }
+  .search-result-img img { width: 100%; height: 100%; object-fit: cover; }
+  .search-result-info { flex: 1; }
+  .search-result-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .search-result-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
   }
 
   /* ============ ПУСТОЕ СОСТОЯНИЕ ============ */
@@ -729,33 +1068,50 @@
     text-align: center;
     padding: 60px 20px;
     color: var(--text-3);
-    grid-column: 1 / -1;
   }
   .empty-icon { font-size: 48px; margin-bottom: 16px; }
   .empty-title { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 8px; }
   .empty-text { font-size: 13px; color: var(--text-2); }
 
+  .order-cancel-btn {
+    margin-top: 8px;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-2);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+  .order-cancel-btn:hover { color: var(--red); border-color: var(--red); }
+
   /* ============ АДАПТАЦИЯ ============ */
   @media (max-width: 1024px) {
     .container { padding: 0 24px; }
     .header-inner { padding: 0 24px; }
-    .hero-text h1 { font-size: 56px; }
+    .banner-content { padding: 0 24px; }
+    .banner h1 { font-size: 48px; }
     .grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .recommended-scroll { margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
   }
 
   @media (max-width: 768px) {
     .container { padding: 0 16px; }
     .header-inner { padding: 0 16px; height: 60px; }
-    .nav-menu { display: none; }
+    .gender-nav { display: none; }
     .brand { font-size: 22px; }
 
-    .hero-section { padding: 30px 0 40px; }
-    .hero-grid { grid-template-columns: 1fr; gap: 30px; }
-    .hero-text h1 { font-size: 42px; letter-spacing: -1.5px; }
-    .hero-text p { font-size: 14px; margin-bottom: 24px; }
-    .hero-btn { padding: 16px 32px; font-size: 13px; }
+    .banner { height: 340px; }
+    .banner-content { padding: 0 16px; }
+    .banner h1 { font-size: 34px; letter-spacing: -1.5px; }
+    .banner p { font-size: 13px; max-width: 100%; }
 
     .filters-title { font-size: 22px; }
+    .filters-row { flex-direction: column; align-items: stretch; }
+    .sort-menu { align-self: flex-end; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
     .card-img { border-radius: 12px; margin-bottom: 10px; }
@@ -767,21 +1123,32 @@
     .mobile-tabbar { display: flex; }
     .app { padding-bottom: 80px; }
 
-    .splash-content { padding: 30px; }
-    .splash-brand { font-size: 64px; }
-    .splash-title { font-size: 32px; }
-    .splash-sub { font-size: 11px; margin-bottom: 40px; }
-
     .modal-card { padding: 24px; border-radius: 20px; }
-    .auth-title { font-size: 24px; }
+    .modal-wide .modal-card { max-width: 100%; }
+    .auth-title { font-size: 22px; }
+
+    .modal-product .modal-card { max-width: 100%; padding: 0; }
+    .product-grid-modal { grid-template-columns: 1fr; }
+    .product-photo { aspect-ratio: 4/5; }
+    .product-details { padding: 24px; max-height: none; }
+    .prod-name { font-size: 24px; }
+    .prod-price { font-size: 26px; }
+
+    .search-box-big { padding: 16px 20px; }
+    .search-box-big input { font-size: 16px; }
+    .search-result-img { width: 70px; height: 95px; }
+    .search-result-name { font-size: 14px; }
+    .search-result-price { font-size: 16px; }
 
     .footer { margin-bottom: 70px; }
+
+    .recommended-scroll { margin: 0 -24px; padding-left: 24px; padding-right: 24px; }
+    .recommended-card { flex: 0 0 140px; }
   }
 
   @media (max-width: 480px) {
-    .hero-text h1 { font-size: 36px; }
+    .banner h1 { font-size: 28px; }
     .grid { gap: 10px; }
-    .splash-brand { font-size: 52px; }
   }
 </style>
 </head>
@@ -795,106 +1162,123 @@
   </div>
 </div>
 
-<!-- ЗАСТАВКА -->
-<div class="splash" id="splash">
-  <div class="splash-bg"></div>
-  <div class="splash-overlay"></div>
-  <div class="splash-content">
-    <div class="splash-badge">Autumn · Winter 2026</div>
-    <div class="splash-brand">REPLIKA</div>
-    <div class="splash-sub">Fashion Store</div>
-    <div class="splash-title">
-      Новая<br>
-      <em>коллекция.</em>
-    </div>
-    <div class="splash-text">
-      Строгий минимализм, премиальные материалы. Доставка по всей России.
-    </div>
-  </div>
-</div>
-
 <div class="app">
 
   <!-- ШАПКА -->
   <header class="header">
     <div class="header-inner">
       <button class="brand" onclick="scrollToTop()">replika</button>
-      <nav class="nav-menu">
-  <a onclick="scrollToCatalog()" class="active">Каталог</a>
-</nav>
+      <nav class="gender-nav">
+        <button class="gender-btn on" data-gender="all" onclick="setGender('all')">Все</button>
+        <button class="gender-btn" data-gender="female" onclick="setGender('female')">Женщинам</button>
+        <button class="gender-btn" data-gender="male" onclick="setGender('male')">Мужчинам</button>
+      </nav>
       <div class="header-actions">
-        <button class="header-action" onclick="scrollToCatalog()">⌕</button>
-        <button class="header-action" onclick="openFavorites()" id="fav-header-btn">♡</button>
+        <button class="header-action" onclick="openSearch()">⌕</button>
+        <button class="header-action" onclick="openFavorites()">♡</button>
         <button class="user-btn" id="header-user-btn" onclick="openProfile()">👤</button>
       </div>
     </div>
   </header>
 
-  <!-- ГЕРОЙ -->
-  <section class="hero-section">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-text">
-          <div class="eyebrow">Осень · Зима 2026</div>
-          <h1>Новая<br><em>коллекция.</em></h1>
-          <p>Строгий минимализм, премиальные материалы и внимание к деталям. Создайте свой образ с REPLIKA.</p>
-          <button class="hero-btn" onclick="scrollToCatalog()">Смотреть каталог →</button>
-        </div>
-        <div class="hero-image" id="hero-image">
-          <img src="images/kr/1.jpg" alt="Новая коллекция" onerror="this.style.display='none';">
-        </div>
-      </div>
+  <!-- БАННЕР -->
+  <section class="banner">
+    <div class="banner-bg"></div>
+    <div class="banner-content">
+      <div class="banner-badge">Осень · Зима 2026</div>
+      <h1>Новая<br><em>коллекция.</em></h1>
+      <p>Строгий минимализм, премиальные материалы и внимание к деталям. Создайте свой образ с REPLIKA.</p>
     </div>
   </section>
 
-  <!-- КАТАЛОГ -->
+  <!-- ФИЛЬТРЫ -->
   <section class="filters-section" id="catalog-section">
     <div class="container">
       <div class="filters-header">
         <div class="filters-title">Каталог</div>
         <div class="filters-count" id="catalog-count">0 товаров</div>
       </div>
-      <div class="filters" id="filters">
-        <button class="filter on" data-cat="all">Все</button>
-        <button class="filter" data-cat="outerwear">Верх</button>
-        <button class="filter" data-cat="bottom">Низ</button>
-        <button class="filter" data-cat="shoes">Обувь</button>
-        <button class="filter" data-cat="bags">Сумки</button>
+      <div class="filters-row">
+        <div class="filters" id="filters">
+          <button class="filter on" data-cat="all">Все</button>
+          <button class="filter" data-cat="outerwear">Верх</button>
+          <button class="filter" data-cat="bottom">Низ</button>
+          <button class="filter" data-cat="shoes">Обувь</button>
+          <button class="filter" data-cat="bags">Сумки</button>
+        </div>
+        <div class="sort-menu" id="sort-menu">
+          <button class="sort-btn" onclick="toggleSortMenu()">
+            <span id="sort-label">По умолчанию</span>
+            <span class="sort-arrow">▾</span>
+          </button>
+          <div class="sort-dropdown" id="sort-dropdown">
+            <button onclick="setSort('default')" class="active">По умолчанию</button>
+            <button onclick="setSort('price-asc')">Дешевле</button>
+            <button onclick="setSort('price-desc')">Дороже</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- СЕТКА -->
   <section class="grid-section">
     <div class="container">
       <div class="grid" id="product-grid"></div>
     </div>
   </section>
 
-  <!-- ПОДВАЛ -->
-  <footer class="footer">
-    REPLIKA · 2026
-  </footer>
+  <footer class="footer">REPLIKA · 2026</footer>
 
   <!-- МОБИЛЬНЫЙ ТАББАР -->
   <nav class="mobile-tabbar">
     <button class="mobile-tab on" onclick="scrollToTop()">
-      <span class="mobile-tab-icon">◉</span>
-      Главная
+      <span class="mobile-tab-icon">◉</span> Главная
     </button>
     <button class="mobile-tab" onclick="scrollToCatalog()">
-      <span class="mobile-tab-icon">◌</span>
-      Каталог
+      <span class="mobile-tab-icon">◌</span> Каталог
     </button>
     <button class="mobile-tab" onclick="openFavorites()">
-      <span class="mobile-tab-icon">♡</span>
-      Избранное
+      <span class="mobile-tab-icon">♡</span> Избранное
     </button>
     <button class="mobile-tab" onclick="openProfile()">
-      <span class="mobile-tab-icon">○</span>
-      Профиль
+      <span class="mobile-tab-icon">○</span> Профиль
     </button>
   </nav>
 
+</div>
+
+<!-- МОДАЛКА ПОИСКА -->
+<div class="modal modal-wide" id="search-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeSearch()">×</button>
+    <div class="auth-title">Поиск</div>
+    <div class="auth-sub">Найдите нужный товар</div>
+
+    <div class="search-box-big">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search-input" placeholder="Что ищете?" autocomplete="off">
+    </div>
+
+    <div id="search-default">
+      <div class="search-popular">Популярное</div>
+      <div class="search-tags">
+        <button class="search-tag" onclick="quickSearch('Джинсы')">Джинсы</button>
+        <button class="search-tag" onclick="quickSearch('Куртка')">Куртка</button>
+        <button class="search-tag" onclick="quickSearch('Кроссовки')">Кроссовки</button>
+        <button class="search-tag" onclick="quickSearch('REPLIKA')">REPLIKA</button>
+      </div>
+    </div>
+
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<!-- МОДАЛКА ТОВАРА -->
+<div class="modal modal-product" id="product-modal">
+  <div class="modal-card">
+    <div id="product-content"></div>
+  </div>
 </div>
 
 <!-- МОДАЛКА АВТОРИЗАЦИИ -->
@@ -913,16 +1297,8 @@
   </div>
 </div>
 
-<!-- МОДАЛКА ТОВАРА -->
-<div class="modal" id="product-modal">
-  <div class="modal-card">
-    <button class="modal-close" onclick="closeProduct()">×</button>
-    <div id="product-content"></div>
-  </div>
-</div>
-
 <!-- МОДАЛКА ИЗБРАННОГО -->
-<div class="modal" id="fav-modal">
+<div class="modal modal-wide" id="fav-modal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeFavorites()">×</button>
     <div id="fav-content"></div>
@@ -931,15 +1307,12 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
   /* ==================== КОНФИГУРАЦИЯ ==================== */
   const SUPABASE_URL = 'https://ejnuygaxiiqhkxmferts.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_Da_7jup1twR4NcjAoo-Rpg_xH-CbTVw';
-  const TELEGRAM_TOKEN = '8823208690:AAGpL3LerrnzJQlGLOGffr8V2irKtx5UzZs';
-  const TELEGRAM_CHAT_ID = '8162779700';
 
   let sbClient = null;
   try {
@@ -950,24 +1323,27 @@
 
   /* ==================== FALLBACK ТОВАРЫ ==================== */
   const FALLBACK_PRODUCTS = [
-    { id: 1, brand: 'REPLIKA', name: 'Джинсы прямые', price: 4990, old: null, tag: null, category: 'bottom', image: 'images/jis/5.jpg', sizes: ['28','30','32','34','36'], colors: ['#2a2a30'], description: 'Плотный деним, прямой крой, средняя посадка.' },
-    { id: 2, brand: 'REPLIKA', name: 'Джинсы slim', price: 5290, old: 6990, tag: '-25%', category: 'bottom', image: 'images/jis/6.jpg', sizes: ['28','30','32','34'], colors: ['#3a3a40'], description: 'Зауженный крой, эластан, комфортная посадка.' },
-    { id: 3, brand: 'REPLIKA', name: 'Куртка кожаная', price: 24900, old: 32000, tag: '-20%', category: 'outerwear', image: 'images/kr/1.jpg', sizes: ['S','M','L','XL'], colors: ['#1a1a1a'], description: 'Натуральная кожа, металлическая фурнитура.' },
-    { id: 4, brand: 'REPLIKA', name: 'Куртка демисезонная', price: 14900, old: null, tag: 'NEW', category: 'outerwear', image: 'images/kr/2.jpg', sizes: ['S','M','L','XL'], colors: ['#3a3a40', '#8a7a5c'], description: 'Ветрозащитная, с утеплителем, капюшон.' },
-    { id: 5, brand: 'REPLIKA BASIC', name: 'Кроссовки белые', price: 8900, old: null, tag: null, category: 'shoes', image: 'images/ob/3.jpg', sizes: ['38','39','40','41','42'], colors: ['#ffffff'], description: 'Натуральная кожа, резиновая подошва.' },
-    { id: 6, brand: 'REPLIKA BASIC', name: 'Кроссовки тёмные', price: 9900, old: 12900, tag: '-25%', category: 'shoes', image: 'images/ob/4.jpg', sizes: ['38','39','40','41','42','43'], colors: ['#1a1a1a'], description: 'Натуральная кожа, мягкая амортизация.' }
+    { id: 1, brand: 'REPLIKA', name: 'Джинсы прямые', price: 4990, old: null, tag: null, category: 'bottom', gender: 'male', images: ['images/jis/5.jpg','images/jis/6.jpg'], sizes: ['28','30','32','34','36'], description: 'Плотный деним, прямой крой, средняя посадка.' },
+    { id: 2, brand: 'REPLIKA', name: 'Джинсы slim', price: 5290, old: 6990, tag: '-25%', category: 'bottom', gender: 'female', images: ['images/jis/6.jpg','images/jis/5.jpg'], sizes: ['28','30','32','34'], description: 'Зауженный крой, эластан, комфортная посадка.' },
+    { id: 3, brand: 'REPLIKA', name: 'Куртка кожаная', price: 24900, old: 32000, tag: '-20%', category: 'outerwear', gender: 'unisex', images: ['images/kr/1.jpg','images/kr/2.jpg'], sizes: ['S','M','L','XL'], description: 'Натуральная кожа, металлическая фурнитура.' },
+    { id: 4, brand: 'REPLIKA', name: 'Куртка демисезонная', price: 14900, old: null, tag: 'NEW', category: 'outerwear', gender: 'male', images: ['images/kr/2.jpg','images/kr/1.jpg'], sizes: ['S','M','L','XL'], description: 'Ветрозащитная, с утеплителем, капюшон.' },
+    { id: 5, brand: 'REPLIKA BASIC', name: 'Кроссовки белые', price: 8900, old: null, tag: null, category: 'shoes', gender: 'unisex', images: ['images/ob/3.jpg','images/ob/4.jpg'], sizes: ['38','39','40','41','42'], description: 'Натуральная кожа, резиновая подошва.' },
+    { id: 6, brand: 'REPLIKA BASIC', name: 'Кроссовки тёмные', price: 9900, old: 12900, tag: '-25%', category: 'shoes', gender: 'female', images: ['images/ob/4.jpg','images/ob/3.jpg'], sizes: ['38','39','40','41','42','43'], description: 'Натуральная кожа, мягкая амортизация.' }
   ];
 
   /* ==================== СОСТОЯНИЕ ==================== */
   let products = FALLBACK_PRODUCTS;
   let state = {
-    favorites: new Set(),
+    favorites: new Map(),
     currentProduct: null,
+    currentPhotoIndex: 0,
     selectedSize: null,
     user: null,
     orders: [],
     authMode: 'login',
     filter: 'all',
+    gender: 'all',
+    sort: 'default',
   };
 
   /* ==================== ЛОАДЕР ==================== */
@@ -985,7 +1361,7 @@
           progress = 100;
           setLoaderProgress(100);
           clearInterval(interval);
-          setTimeout(resolve, 300);
+          setTimeout(resolve, 250);
         } else {
           setLoaderProgress(Math.floor(progress));
         }
@@ -1000,7 +1376,10 @@
       if (!response.ok) throw new Error('Not found');
       const data = await response.json();
       if (data.products && Array.isArray(data.products)) {
-        products = data.products;
+        products = data.products.map(p => ({
+          ...p,
+          images: p.images || (p.image ? [p.image] : []),
+        }));
         console.log('✓ Загружено товаров:', products.length);
       }
     } catch (e) {
@@ -1023,8 +1402,8 @@
   }
 
   function phoneToEmail(phone) {
-  return phone.replace(/[^0-9]/g, '') + '@gmail.com';
-}
+    return phone.replace(/[^0-9]/g, '') + '@gmail.com';
+  }
 
   async function signUp(phone, password) {
     const { data, error } = await sbClient.auth.signUp({
@@ -1080,41 +1459,104 @@
       product_name: product.name,
       product_price: product.price,
       product_size: size,
-      product_image: product.image,
+      product_image: (product.images && product.images[0]) || product.image,
       user_phone: state.user.user_metadata?.phone || state.user.email
     };
 
     const { data, error } = await sbClient.from('orders').insert([orderData]).select();
     if (error) throw error;
-
-    await sendTelegramNotification(orderData);
     await loadOrders();
     return data;
   }
 
-  async function sendTelegramNotification(order) {
-    const phone = state.user?.user_metadata?.phone || state.user?.email || 'не указан';
-    const text = `🛍 Новый заказ!\n\n📦 Товар: ${order.product_name}\n💰 Цена: ${order.product_price.toLocaleString('ru')} ₽\n📏 Размер: ${order.product_size}\n\n👤 Клиент: ${phone}\n⏰ ${new Date().toLocaleString('ru', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+  async function cancelOrder(orderId) {
+    if (!sbClient || !state.user) return;
+    if (!confirm('Отменить заказ?')) return;
 
     try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text })
-      });
-      console.log('✓ Уведомление отправлено в Telegram');
+      const { error } = await sbClient
+        .from('orders')
+        .delete()
+        .eq('id', orderId)
+        .eq('user_id', state.user.id);
+      if (error) throw error;
+      showToast('Заказ отменён');
+      await loadOrders();
+      renderProfile();
     } catch (e) {
-      console.error('✗ Ошибка отправки в Telegram:', e);
+      console.error('Cancel error:', e);
+      showToast('Не удалось отменить');
     }
   }
 
+  /* ==================== ФИЛЬТРЫ ==================== */
+  function setGender(gender) {
+    state.gender = gender;
+    document.querySelectorAll('.gender-btn').forEach(b => {
+      b.classList.toggle('on', b.dataset.gender === gender);
+    });
+    renderGrid(true);
+  }
+
+  function applyFilter(cat) {
+    state.filter = cat;
+    document.querySelectorAll('.filter').forEach(f => {
+      f.classList.toggle('on', f.dataset.cat === cat);
+    });
+    renderGrid(true);
+  }
+
+  /* ==================== СОРТИРОВКА ==================== */
+  function toggleSortMenu() {
+    document.getElementById('sort-menu').classList.toggle('open');
+  }
+
+  function setSort(mode) {
+    state.sort = mode;
+    document.getElementById('sort-menu').classList.remove('open');
+
+    const labels = {
+      'default': 'По умолчанию',
+      'price-asc': 'Дешевле',
+      'price-desc': 'Дороже'
+    };
+    document.getElementById('sort-label').textContent = labels[mode];
+
+    document.querySelectorAll('#sort-dropdown button').forEach(b => {
+      b.classList.toggle('active', b.textContent === labels[mode]);
+    });
+
+    renderGrid(true);
+  }
+
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('sort-menu');
+    if (menu && !e.target.closest('#sort-menu')) {
+      menu.classList.remove('open');
+    }
+  });
+
   /* ==================== РЕНДЕР СЕТКИ ==================== */
-  function renderGrid() {
+  function renderGrid(animate = false) {
     const el = document.getElementById('product-grid');
     const countEl = document.getElementById('catalog-count');
     if (!el) return;
 
-    const filtered = state.filter === 'all' ? products : products.filter(p => p.category === state.filter);
+    let filtered = [...products];
+
+    if (state.filter !== 'all') {
+      filtered = filtered.filter(p => p.category === state.filter);
+    }
+
+    if (state.gender !== 'all') {
+      filtered = filtered.filter(p => p.gender === state.gender || p.gender === 'unisex');
+    }
+
+    if (state.sort === 'price-asc') {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (state.sort === 'price-desc') {
+      filtered.sort((a, b) => b.price - a.price);
+    }
 
     if (countEl) {
       countEl.textContent = `${filtered.length} ${plural(filtered.length, 'товар', 'товара', 'товаров')}`;
@@ -1122,7 +1564,7 @@
 
     if (filtered.length === 0) {
       el.innerHTML = `
-        <div class="empty-state">
+        <div class="empty-state" style="grid-column: 1 / -1;">
           <div class="empty-icon">🔍</div>
           <div class="empty-title">Ничего не найдено</div>
           <div class="empty-text">Попробуйте другую категорию</div>
@@ -1131,25 +1573,22 @@
       return;
     }
 
-    el.innerHTML = filtered.map(p => `
-      <div class="card" onclick="openProduct(${p.id})">
-        <div class="card-img">
-          <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.background='#242429';this.style.display='none';">
-          ${p.tag ? `<div class="tag">${p.tag}</div>` : ''}
-          <button class="fav ${state.favorites.has(p.id) ? 'on' : ''}" onclick="event.stopPropagation(); toggleFav(${p.id})">${state.favorites.has(p.id) ? '♥' : '♡'}</button>
+    el.innerHTML = filtered.map((p, index) => {
+      const isFav = state.favorites.has(p.id);
+      const img = (p.images && p.images[0]) || p.image || '';
+      const delay = animate ? (index * 0.05) : 0;
+      return `
+        <div class="card" onclick="openProduct(${p.id})" style="animation-delay: ${delay}s;">
+          <div class="card-img">
+            <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.style.background='#242429';this.style.display='none';">
+            ${p.tag ? `<div class="tag">${p.tag}</div>` : ''}
+            <button class="fav ${isFav ? 'on' : ''}" data-fav-id="${p.id}" onclick="event.stopPropagation(); toggleFav(${p.id}, '${p.sizes[Math.floor(p.sizes.length/2)]}')">${isFav ? '♥' : '♡'}</button>
+          </div>
+          <div class="card-name">${p.name}</div>
+          <div class="card-price">${p.price.toLocaleString('ru')} ₽${p.old ? `<span class="old">${p.old.toLocaleString('ru')}</span>` : ''}</div>
         </div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-price">${p.price.toLocaleString('ru')} ₽${p.old ? `<span class="old">${p.old.toLocaleString('ru')}</span>` : ''}</div>
-      </div>
-    `).join('');
-  }
-
-  function applyFilter(cat) {
-    state.filter = cat;
-    document.querySelectorAll('.filter').forEach(f => {
-      f.classList.toggle('on', f.dataset.cat === cat);
-    });
-    renderGrid();
+      `;
+    }).join('');
   }
 
   /* ==================== КАРТОЧКА ТОВАРА ==================== */
@@ -1157,41 +1596,156 @@
     const p = products.find(x => x.id === id);
     if (!p) return;
     state.currentProduct = p;
+    state.currentPhotoIndex = 0;
     state.selectedSize = p.sizes[Math.floor(p.sizes.length / 2)] || p.sizes[0];
 
     const isFav = state.favorites.has(p.id);
+    const images = p.images && p.images.length ? p.images : (p.image ? [p.image] : ['']);
+    const hasMultiple = images.length > 1;
+
+    // Рекомендуемые товары — той же категории, кроме текущего
+    const recommended = products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 8);
 
     const content = document.getElementById('product-content');
 
     content.innerHTML = `
-      <div style="aspect-ratio: 4/5; background: var(--surface); border-radius: 16px; overflow: hidden; margin-bottom: 20px;">
-        <img src="${p.image}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.background='#242429';this.style.display='none';">
-      </div>
+      <button class="modal-close" onclick="closeProduct()" style="position: absolute;">×</button>
+      <div class="product-grid-modal">
+        <div class="product-photo">
+          <div class="photo-gallery">
+            <div class="photo-gallery-track" id="photo-track">
+              ${images.map(img => `<img src="${img}" draggable="false" onerror="this.style.background='#242429';this.style.display='none';">`).join('')}
+            </div>
+            ${hasMultiple ? `
+              <button class="photo-arrow prev" onclick="photoPrev()">‹</button>
+              <button class="photo-arrow next" onclick="photoNext()">›</button>
+              <div class="photo-dots" id="photo-dots">
+                ${images.map((_, i) => `<div class="photo-dot ${i === 0 ? 'on' : ''}" onclick="photoGoTo(${i})"></div>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+        <div class="product-details">
+          <div class="prod-brand">${p.brand}</div>
+          <div class="prod-name">${p.name}</div>
 
-      <div style="font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 8px;">${p.brand}</div>
-      <div style="font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -1px; margin-bottom: 14px; line-height: 1.15;">${p.name}</div>
+          <div class="prod-price-row">
+            <span class="prod-price">${p.price.toLocaleString('ru')} ₽</span>
+            ${p.old ? `<span class="prod-old">${p.old.toLocaleString('ru')} ₽</span>` : ''}
+          </div>
 
-      <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;">
-        <span style="font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1.2px;">${p.price.toLocaleString('ru')} ₽</span>
-        ${p.old ? `<span style="font-size: 15px; color: var(--text-3); text-decoration: line-through;">${p.old.toLocaleString('ru')} ₽</span>` : ''}
-      </div>
+          <div class="size-label">Размер</div>
+          <div class="size-row" id="size-row">
+            ${p.sizes.map(s => `
+              <button class="size-btn ${s === state.selectedSize ? 'on' : ''}" onclick="selectSize('${s}')">${s}</button>
+            `).join('')}
+          </div>
 
-      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-2); font-weight: 700; margin-bottom: 10px;">Размер</div>
-      <div id="size-row" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px;">
-        ${p.sizes.map(s => `
-          <button class="size ${s === state.selectedSize ? 'on' : ''}" onclick="selectSize('${s}')" style="flex: 1; min-width: 48px; padding: 12px 0; text-align: center; background: ${s === state.selectedSize ? '#fff' : 'var(--surface)'}; color: ${s === state.selectedSize ? '#0a0a0c' : 'var(--text-2)'}; border: 1px solid ${s === state.selectedSize ? '#fff' : 'var(--border)'}; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;">${s}</button>
-        `).join('')}
-      </div>
+          <div class="prod-desc">${p.description || ''}</div>
 
-      <div style="font-size: 13px; color: var(--text-2); line-height: 1.6; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border);">${p.description || ''}</div>
+          <button class="form-submit" onclick="handleOrder()" id="order-submit-btn">Забронировать</button>
+          <div class="form-skip">
+            <button onclick="toggleFav(${p.id}, '${state.selectedSize}'); syncProductFav(${p.id});" id="product-fav-btn">${isFav ? '♥ Убрать из избранного' : '♡ Добавить в избранное'}</button>
+          </div>
 
-      <button class="form-submit" onclick="handleOrder()" id="order-submit-btn">Забронировать</button>
-      <div class="form-skip">
-        <button onclick="toggleFav(${p.id}); syncProductFav(${p.id});" id="product-fav-btn">${isFav ? '♥ Убрать из избранного' : '♡ Добавить в избранное'}</button>
+          ${recommended.length > 0 ? `
+            <div class="recommended-section">
+              <div class="recommended-title">Похожие товары</div>
+              <div class="recommended-scroll">
+                ${recommended.map(r => {
+                  const rImg = (r.images && r.images[0]) || r.image || '';
+                  return `
+                    <div class="recommended-card" onclick="event.stopPropagation(); switchProduct(${r.id})">
+                      <div class="recommended-img">
+                        <img src="${rImg}" draggable="false" onerror="this.style.background='#242429';this.style.display='none';">
+                      </div>
+                      <div class="recommended-name">${r.name}</div>
+                      <div class="recommended-price">${r.price.toLocaleString('ru')} ₽</div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
       </div>
     `;
 
     document.getElementById('product-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setupPhotoSwipe(images.length);
+  }
+
+  function switchProduct(id) {
+    state.currentPhotoIndex = 0;
+    openProduct(id);
+    // Скролл деталей наверх
+    setTimeout(() => {
+      const details = document.querySelector('.product-details');
+      if (details) details.scrollTop = 0;
+    }, 50);
+  }
+
+  function setupPhotoSwipe(total) {
+    const track = document.getElementById('photo-track');
+    if (!track || total < 2) return;
+    let startX = 0;
+    let currentX = 0;
+    let dragging = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      dragging = true;
+      track.style.transition = 'none';
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      currentX = e.touches[0].clientX - startX;
+      const offset = -state.currentPhotoIndex * track.offsetWidth + currentX;
+      track.style.transform = `translateX(${offset}px)`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      dragging = false;
+      track.style.transition = '';
+      if (Math.abs(currentX) > 50) {
+        if (currentX < 0 && state.currentPhotoIndex < total - 1) state.currentPhotoIndex++;
+        else if (currentX > 0 && state.currentPhotoIndex > 0) state.currentPhotoIndex--;
+      }
+      photoGoTo(state.currentPhotoIndex);
+      currentX = 0;
+    });
+  }
+
+  function photoGoTo(index) {
+    const track = document.getElementById('photo-track');
+    if (!track) return;
+    state.currentPhotoIndex = index;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    document.querySelectorAll('.photo-dot').forEach((d, i) => {
+      d.classList.toggle('on', i === index);
+    });
+  }
+
+  function photoPrev() {
+    const p = state.currentProduct;
+    const images = p.images || (p.image ? [p.image] : []);
+    if (state.currentPhotoIndex > 0) {
+      photoGoTo(state.currentPhotoIndex - 1);
+    } else {
+      photoGoTo(images.length - 1);
+    }
+  }
+
+  function photoNext() {
+    const p = state.currentProduct;
+    const images = p.images || (p.image ? [p.image] : []);
+    if (state.currentPhotoIndex < images.length - 1) {
+      photoGoTo(state.currentPhotoIndex + 1);
+    } else {
+      photoGoTo(0);
+    }
   }
 
   function syncProductFav(id) {
@@ -1202,15 +1756,13 @@
 
   function closeProduct() {
     document.getElementById('product-modal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   function selectSize(size) {
     state.selectedSize = size;
-    document.querySelectorAll('#size-row .size').forEach(btn => {
-      const isOn = btn.textContent === size;
-      btn.style.background = isOn ? '#fff' : 'var(--surface)';
-      btn.style.color = isOn ? '#0a0a0c' : 'var(--text-2)';
-      btn.style.borderColor = isOn ? '#fff' : 'var(--border)';
+    document.querySelectorAll('#size-row .size-btn').forEach(btn => {
+      btn.classList.toggle('on', btn.textContent === size);
     });
   }
 
@@ -1223,32 +1775,34 @@
     }
     const content = document.getElementById('product-content');
     const p = state.currentProduct;
+    const img = (p.images && p.images[0]) || p.image || '';
     content.innerHTML = `
-      <div style="text-align: center; margin-bottom: 24px;">
+      <button class="modal-close" onclick="closeProduct()" style="position: absolute;">×</button>
+      <div style="padding: 40px; text-align: center;">
         <div style="font-size: 56px; margin-bottom: 16px;">📦</div>
         <div class="auth-title" style="font-size: 24px;">Подтвердить заказ?</div>
         <div class="auth-sub">Проверьте детали перед отправкой</div>
-      </div>
 
-      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 24px;">
-        <div style="display: flex; gap: 14px; margin-bottom: 14px;">
-          <div style="width: 60px; height: 80px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--surface-2);">
-            <img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+        <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 24px; text-align: left;">
+          <div style="display: flex; gap: 14px; margin-bottom: 14px;">
+            <div style="width: 60px; height: 80px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--surface-2);">
+              <img src="${img}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+            </div>
+            <div style="flex: 1;">
+              <div class="prod-brand" style="margin-bottom: 4px;">${p.brand}</div>
+              <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px;">${p.name}</div>
+              <div style="font-size: 12px; color: var(--text-3);">Размер: ${state.selectedSize}</div>
+            </div>
           </div>
-          <div style="flex: 1;">
-            <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 4px;">${p.brand}</div>
-            <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px;">${p.name}</div>
-            <div style="font-size: 12px; color: var(--text-3);">Размер: ${state.selectedSize}</div>
+          <div style="display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border);">
+            <span style="font-size: 13px; color: var(--text-2);">Итого</span>
+            <span style="font-size: 20px; font-weight: 800; color: #fff;">${p.price.toLocaleString('ru')} ₽</span>
           </div>
         </div>
-        <div style="display: flex; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border);">
-          <span style="font-size: 13px; color: var(--text-2);">Итого</span>
-          <span style="font-size: 20px; font-weight: 800; color: #fff;">${p.price.toLocaleString('ru')} ₽</span>
-        </div>
-      </div>
 
-      <button class="form-submit" onclick="confirmOrder()" id="confirm-btn">Забронировать</button>
-      <div class="form-skip"><button onclick="closeProduct()">Отмена</button></div>
+        <button class="form-submit" onclick="confirmOrder()" id="confirm-btn">Забронировать</button>
+        <div class="form-skip"><button onclick="closeProduct()">Отмена</button></div>
+      </div>
     `;
   }
 
@@ -1271,24 +1825,33 @@
   }
 
   /* ==================== ИЗБРАННОЕ ==================== */
-  function toggleFav(id) {
-    if (state.favorites.has(id)) {
+  function toggleFav(id, size) {
+    const wasFav = state.favorites.has(id);
+
+    if (wasFav) {
       state.favorites.delete(id);
       showToast('Удалено из избранного');
     } else {
-      state.favorites.add(id);
+      state.favorites.set(id, size || null);
       showToast('Добавлено в избранное ♥');
     }
-    renderGrid();
+
+    // Обновляем ВСЕ кнопки этого товара без перерисовки сетки
+    document.querySelectorAll(`[data-fav-id="${id}"]`).forEach(btn => {
+      btn.classList.toggle('on', !wasFav);
+      btn.textContent = !wasFav ? '♥' : '♡';
+    });
   }
 
   function openFavorites() {
     renderFavorites();
     document.getElementById('fav-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeFavorites() {
     document.getElementById('fav-modal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   function renderFavorites() {
@@ -1299,10 +1862,10 @@
       el.innerHTML = `
         <div class="auth-title">Избранное</div>
         <div class="auth-sub">0 товаров</div>
-        <div style="text-align: center; padding: 40px 20px; color: var(--text-3);">
-          <div style="font-size: 56px; margin-bottom: 16px;">♡</div>
-          <div style="font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 8px;">Пока пусто</div>
-          <div style="font-size: 13px; color: var(--text-2);">Сохраняйте товары, чтобы вернуться к ним позже</div>
+        <div class="empty-state">
+          <div class="empty-icon">♡</div>
+          <div class="empty-title">Пока пусто</div>
+          <div class="empty-text">Сохраняйте товары, чтобы вернуться к ним позже</div>
         </div>
       `;
       return;
@@ -1311,32 +1874,106 @@
     el.innerHTML = `
       <div class="auth-title">Избранное</div>
       <div class="auth-sub">${favItems.length} ${plural(favItems.length, 'товар', 'товара', 'товаров')}</div>
-
-      <div style="display: flex; flex-direction: column; gap: 12px;">
-        ${favItems.map(p => `
-          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 12px; display: flex; gap: 12px; align-items: center; cursor: pointer;" onclick="closeFavorites(); openProduct(${p.id});">
-            <div style="width: 60px; height: 80px; background: var(--surface-2); border-radius: 10px; overflow: hidden; flex-shrink: 0;">
-              <img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
+      <div class="search-results">
+        ${favItems.map(p => {
+          const img = (p.images && p.images[0]) || p.image || '';
+          const savedSize = state.favorites.get(p.id);
+          return `
+            <div class="search-result-item" onclick="closeFavorites(); openProduct(${p.id});">
+              <div class="search-result-img">
+                <img src="${img}" draggable="false" onerror="this.style.display='none';">
+              </div>
+              <div class="search-result-info">
+                <div class="search-result-name">${p.name}</div>
+                ${savedSize ? `<div style="font-size: 12px; color: var(--text-2); margin-bottom: 6px;">Размер: ${savedSize}</div>` : ''}
+                <div class="search-result-price">${p.price.toLocaleString('ru')} ₽</div>
+              </div>
+              <button onclick="event.stopPropagation(); toggleFav(${p.id}); renderFavorites(); renderGrid();" style="background: none; border: none; color: var(--red); font-size: 20px; cursor: pointer; padding: 8px; font-family: inherit;">♥</button>
             </div>
-            <div style="flex: 1;">
-              <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px;">${p.name}</div>
-              <div style="font-size: 14px; font-weight: 700; color: var(--gold);">${p.price.toLocaleString('ru')} ₽</div>
-            </div>
-            <button onclick="event.stopPropagation(); toggleFav(${p.id}); renderFavorites();" style="background: none; border: none; color: var(--red); font-size: 18px; cursor: pointer; padding: 8px; font-family: inherit;">♥</button>
-          </div>
-        `).join('')}
+          `;
+        }).join('')}
       </div>
     `;
+  }
+
+  /* ==================== ПОИСК ==================== */
+  function openSearch() {
+    document.getElementById('search-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      const input = document.getElementById('search-input');
+      if (input) { input.value = ''; input.focus(); }
+    }, 300);
+    performSearch('');
+  }
+
+  function closeSearch() {
+    document.getElementById('search-modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function quickSearch(q) {
+    document.getElementById('search-input').value = q;
+    performSearch(q);
+  }
+
+  function performSearch(query) {
+    const q = query.trim().toLowerCase();
+    const resultsEl = document.getElementById('search-results');
+    const defaultEl = document.getElementById('search-default');
+
+    if (!q) {
+      defaultEl.style.display = 'block';
+      resultsEl.innerHTML = '';
+      return;
+    }
+
+    defaultEl.style.display = 'none';
+
+    const found = products.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      (p.brand || '').toLowerCase().includes(q) ||
+      (p.category || '').toLowerCase().includes(q) ||
+      (p.description || '').toLowerCase().includes(q)
+    );
+
+    if (found.length === 0) {
+      resultsEl.innerHTML = `
+        <div class="empty-state" style="padding: 40px 20px;">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-title">Ничего не найдено</div>
+          <div class="empty-text">Попробуйте другой запрос</div>
+        </div>
+      `;
+      return;
+    }
+
+    resultsEl.innerHTML = found.map(p => {
+      const img = (p.images && p.images[0]) || p.image || '';
+      return `
+        <div class="search-result-item" onclick="closeSearch(); openProduct(${p.id});">
+          <div class="search-result-img">
+            <img src="${img}" draggable="false" onerror="this.style.display='none';">
+          </div>
+          <div class="search-result-info">
+            <div class="search-result-name">${p.name}</div>
+            <div class="search-result-price">${p.price.toLocaleString('ru')} ₽</div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   /* ==================== ПРОФИЛЬ ==================== */
   function openProfile() {
     renderProfile();
     document.getElementById('profile-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeProfile() {
     document.getElementById('profile-modal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   function renderProfile() {
@@ -1346,8 +1983,8 @@
       el.innerHTML = `
         <div style="text-align: center; padding: 20px 0;">
           <div style="font-size: 56px; color: var(--text-3); margin-bottom: 20px;">👤</div>
-          <div style="font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.8px;">Войдите в аккаунт</div>
-          <div style="font-size: 13px; color: var(--text-2); line-height: 1.5; max-width: 280px; margin: 0 auto 28px;">Чтобы бронировать товары и видеть историю заказов</div>
+          <div class="auth-title">Войдите в аккаунт</div>
+          <div class="auth-sub" style="margin-bottom: 28px;">Чтобы бронировать товары и видеть историю заказов</div>
           <button class="form-submit" onclick="closeProfile(); openAuth('login');" style="margin-bottom: 10px;">Войти</button>
           <button class="form-submit" onclick="closeProfile(); openAuth('signup');" style="background: transparent; border: 1.5px solid var(--border); color: #fff;">Создать аккаунт</button>
         </div>
@@ -1359,24 +1996,24 @@
     const initial = (phone.replace(/[^0-9]/g, '') || 'U').slice(-2, -1) || 'U';
 
     const ordersHtml = state.orders.length === 0
-      ? `<div style="text-align: center; padding: 30px 20px; color: var(--text-3);"><div style="font-size: 42px; margin-bottom: 12px;">📦</div><div style="font-size: 13px;">Заказов пока нет</div></div>`
+      ? `<div class="empty-state"><div class="empty-icon">📦</div><div class="empty-title">Заказов нет</div></div>`
       : state.orders.map(o => {
           const statusText = { new: 'Новый', confirmed: 'Подтверждён', cancelled: 'Отменён' }[o.status] || 'Новый';
           const statusClass = o.status || 'new';
+          const canCancel = statusClass === 'new';
           return `
             <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; display: flex; gap: 12px; margin-bottom: 10px;">
               <div style="width: 60px; height: 80px; background: var(--surface-2); border-radius: 10px; overflow: hidden; flex-shrink: 0;">
                 <img src="${o.product_image}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none';">
               </div>
-              <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                  <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; line-height: 1.3;">${o.product_name}</div>
-                  <div style="font-size: 11px; color: var(--text-3);">Размер: ${o.product_size} · ${new Date(o.created_at).toLocaleDateString('ru')}</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="flex: 1;">
+                <div style="font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; line-height: 1.3;">${o.product_name}</div>
+                <div style="font-size: 11px; color: var(--text-3); margin-bottom: 6px;">Размер: ${o.product_size} · ${new Date(o.created_at).toLocaleDateString('ru')}</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                   <span style="font-size: 14px; font-weight: 700; color: #fff;">${o.product_price.toLocaleString('ru')} ₽</span>
                   <span style="font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; background: ${statusClass === 'new' ? 'rgba(212,176,106,0.15)' : statusClass === 'confirmed' ? 'rgba(78,205,196,0.15)' : 'rgba(255,77,109,0.15)'}; color: ${statusClass === 'new' ? 'var(--gold)' : statusClass === 'confirmed' ? '#4ecdc4' : 'var(--red)'};">${statusText}</span>
                 </div>
+                ${canCancel ? `<button class="order-cancel-btn" onclick="cancelOrder('${o.id}')">Отменить заказ</button>` : ''}
               </div>
             </div>
           `;
@@ -1417,10 +2054,12 @@
     state.authMode = mode;
     renderAuthForm();
     document.getElementById('auth-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
   function closeAuth() {
     document.getElementById('auth-modal').classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   function renderAuthForm() {
@@ -1502,6 +2141,7 @@
       let msg = 'Ошибка. Попробуйте ещё раз';
       if (e.message?.toLowerCase().includes('invalid login')) msg = 'Неверный номер или пароль';
       if (e.message?.toLowerCase().includes('already registered')) msg = 'Этот номер уже зарегистрирован';
+      if (e.message?.toLowerCase().includes('email not confirmed')) msg = 'Подтвердите email в настройках Supabase';
       if (e.message?.toLowerCase().includes('password')) msg = 'Пароль слишком короткий';
       errorEl.textContent = msg;
       errorEl.classList.add('show');
@@ -1564,26 +2204,33 @@
 
     document.querySelectorAll('.modal').forEach(m => {
       m.addEventListener('click', (e) => {
-        if (e.target === m) m.classList.remove('active');
+        if (e.target === m) {
+          m.classList.remove('active');
+          document.body.style.overflow = '';
+        }
       });
+    });
+
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+    }
+
+    // Глобальный запрет перетаскивания картинок
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
     });
 
     await runLoader();
     await loadProducts();
     await checkAuth();
 
-    renderGrid();
+    renderGrid(false);
     updateUserUI();
 
     const loader = document.getElementById('loader');
     loader.classList.add('hidden');
-    setTimeout(() => loader.remove(), 500);
-
-    setTimeout(() => {
-      const splash = document.getElementById('splash');
-      splash.classList.add('hidden');
-      setTimeout(() => splash.remove(), 700);
-    }, 2500);
+    setTimeout(() => loader.remove(), 400);
   }
 
   init();
