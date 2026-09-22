@@ -11,8 +11,8 @@
       "category": "bottom",
       "gender": "male",
       "images": [
-        "image/jis/5.jpg",
-        "image/jis/6.jpg"
+        "images/jis/5.jpg",
+        "images/jis/6.jpg"
       ],
       "sizes": ["28", "30", "32", "34", "36"],
       "colors": ["#2a2a30"],
@@ -28,8 +28,8 @@
       "category": "bottom",
       "gender": "female",
       "images": [
-        "image/jis/6.jpg",
-        "image/jis/5.jpg"
+        "images/jis/6.jpg",
+        "images/jis/5.jpg"
       ],
       "sizes": ["28", "30", "32", "34"],
       "colors": ["#3a3a40"],
@@ -45,8 +45,8 @@
       "category": "outerwear",
       "gender": "unisex",
       "images": [
-        "image/kr/1.jpg",
-        "image/kr/2.jpg"
+        "images/kr/1.jpg",
+        "images/kr/2.jpg"
       ],
       "sizes": ["S", "M", "L", "XL"],
       "colors": ["#1a1a1a"],
@@ -62,8 +62,8 @@
       "category": "outerwear",
       "gender": "male",
       "images": [
-        "image/kr/2.jpg",
-        "image/kr/1.jpg"
+        "images/kr/2.jpg",
+        "images/kr/1.jpg"
       ],
       "sizes": ["S", "M", "L", "XL"],
       "colors": ["#3a3a40", "#8a7a5c"],
@@ -79,8 +79,8 @@
       "category": "shoes",
       "gender": "unisex",
       "images": [
-        "image/ob/3.jpg",
-        "image/ob/4.jpg"
+        "images/ob/3.jpg",
+        "images/ob/4.jpg"
       ],
       "sizes": ["38", "39", "40", "41", "42"],
       "colors": ["#ffffff"],
@@ -96,8 +96,8 @@
       "category": "shoes",
       "gender": "female",
       "images": [
-        "image/ob/4.jpg",
-        "image/ob/3.jpg"
+        "images/ob/4.jpg",
+        "images/ob/3.jpg"
       ],
       "sizes": ["38", "39", "40", "41", "42", "43"],
       "colors": ["#1a1a1a"],
