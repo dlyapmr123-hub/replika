@@ -1,107 +1,283 @@
 {
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "products": [
     {
       "id": 1,
-      "brand": "REPLIKA",
+      "brand": "РЕПЛИКА",
       "name": "Джинсы прямые",
       "price": 4990,
       "old": null,
       "tag": null,
       "category": "bottom",
       "gender": "male",
+      "in_stock": true,
       "images": [
         "images/jis/5.jpg",
         "images/jis/6.jpg"
       ],
-      "sizes": ["28", "30", "32", "34", "36"],
-      "colors": ["#2a2a30"],
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34",
+        "36"
+      ],
+      "colors": [
+        "#2a2a30"
+      ],
       "description": "Плотный деним, прямой крой, средняя посадка."
     },
     {
       "id": 2,
-      "brand": "REPLIKA",
+      "brand": "РЕПЛИКА",
       "name": "Джинсы slim",
       "price": 5290,
       "old": 6990,
       "tag": "-25%",
       "category": "bottom",
       "gender": "female",
+      "in_stock": true,
       "images": [
         "images/jis/6.jpg",
         "images/jis/5.jpg"
       ],
-      "sizes": ["28", "30", "32", "34"],
-      "colors": ["#3a3a40"],
+      "sizes": [
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "colors": [
+        "#3a3a40"
+      ],
       "description": "Зауженный крой, эластан, комфортная посадка."
     },
     {
       "id": 3,
-      "brand": "REPLIKA",
+      "brand": "РЕПЛИКА",
       "name": "Куртка кожаная",
       "price": 24900,
       "old": 32000,
       "tag": "-20%",
       "category": "outerwear",
       "gender": "unisex",
+      "in_stock": true,
       "images": [
         "images/kr/1.jpg",
         "images/kr/2.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL"],
-      "colors": ["#1a1a1a"],
-      "description": "Натуральная кожа, металлическая фурнитура."
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#1a1a1a"
+      ],
+      "description": "Натуральная кожа, металлическая фурнитура. Универсальный крой для мужчин и женщин."
     },
     {
       "id": 4,
-      "brand": "REPLIKA",
+      "brand": "РЕПЛИКА",
       "name": "Куртка демисезонная",
       "price": 14900,
       "old": null,
       "tag": "NEW",
       "category": "outerwear",
       "gender": "male",
+      "in_stock": false,
       "images": [
         "images/kr/2.jpg",
         "images/kr/1.jpg"
       ],
-      "sizes": ["S", "M", "L", "XL"],
-      "colors": ["#3a3a40", "#8a7a5c"],
-      "description": "Ветрозащитная, с утеплителем, капюшон."
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#3a3a40",
+        "#8a7a5c"
+      ],
+      "description": "Ветрозащитная, с утеплителем, капюшон. Доставка под заказ 5–7 дней."
     },
     {
       "id": 5,
-      "brand": "REPLIKA BASIC",
+      "brand": "РЕПЛИКА",
       "name": "Кроссовки белые",
       "price": 8900,
       "old": null,
       "tag": null,
       "category": "shoes",
       "gender": "unisex",
+      "in_stock": true,
       "images": [
         "images/ob/3.jpg",
         "images/ob/4.jpg"
       ],
-      "sizes": ["38", "39", "40", "41", "42"],
-      "colors": ["#ffffff"],
-      "description": "Натуральная кожа, резиновая подошва."
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "colors": [
+        "#ffffff"
+      ],
+      "description": "Натуральная кожа, резиновая подошва. Подходит мужчинам и женщинам."
     },
     {
       "id": 6,
-      "brand": "REPLIKA BASIC",
+      "brand": "РЕПЛИКА BASIC",
       "name": "Кроссовки тёмные",
       "price": 9900,
       "old": 12900,
       "tag": "-25%",
       "category": "shoes",
       "gender": "female",
+      "in_stock": false,
       "images": [
         "images/ob/4.jpg",
         "images/ob/3.jpg"
       ],
-      "sizes": ["38", "39", "40", "41", "42", "43"],
-      "colors": ["#1a1a1a"],
-      "description": "Натуральная кожа, мягкая амортизация."
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "colors": [
+        "#1a1a1a"
+      ],
+      "description": "Натуральная кожа, мягкая амортизация. Доставка под заказ 5–7 дней."
+    },
+    {
+      "id": 7,
+      "brand": "РЕПЛИКА",
+      "name": "Свитер шерстяной",
+      "price": 5490,
+      "old": null,
+      "tag": null,
+      "category": "outerwear",
+      "gender": "unisex",
+      "in_stock": true,
+      "images": [
+        "images/ob/3.jpg"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#8a7a5c",
+        "#3a3a40"
+      ],
+      "description": "Мягкая шерсть мериноса, свободный крой, круглый вырез."
+    },
+    {
+      "id": 8,
+      "brand": "РЕПЛИКА BASIC",
+      "name": "Футболка хлопок",
+      "price": 1990,
+      "old": null,
+      "tag": null,
+      "category": "outerwear",
+      "gender": "male",
+      "in_stock": true,
+      "images": [
+        "images/ob/4.jpg"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "#ffffff",
+        "#3a3a40"
+      ],
+      "description": "100% хлопок, плотность 220 г/м², свободный крой."
+    },
+    {
+      "id": 9,
+      "brand": "РЕПЛИКА",
+      "name": "кошка",
+      "price": 113,
+      "old": null,
+      "tag": "пошел назуй",
+      "category": "outerwear",
+      "gender": "unisex",
+      "in_stock": true,
+      "images": [
+        "images/gg.jpg"
+      ],
+      "sizes": [],
+      "description": "писькаструй кошка кукошка"
+    },
+    {
+      "id": 11,
+      "brand": "РЕПЛИКА",
+      "name": "дура",
+      "price": 3265,
+      "old": 66666,
+      "tag": "ЧАС",
+      "category": "outerwear",
+      "gender": "unisex",
+      "in_stock": true,
+      "images": [
+        "images/123/33/kk.jpg"
+      ],
+      "sizes": [
+        "1",
+        "2",
+        "5",
+        "6"
+      ],
+      "description": "ПОЛНЫЙ ГАЗ"
+    },
+    {
+      "id": 12,
+      "brand": "РЕПЛИКА",
+      "name": "fff",
+      "price": 1200,
+      "old": null,
+      "tag": null,
+      "category": "outerwear",
+      "gender": "unisex",
+      "in_stock": true,
+      "images": [
+        "images/fff.jpg"
+      ],
+      "sizes": [
+        "S"
+      ],
+      "description": "дубинус"
+    }
+  ],
+  "categories": [
+    {
+      "id": "outerwear",
+      "name": "Верх"
+    },
+    {
+      "id": "bottom",
+      "name": "Низ"
+    },
+    {
+      "id": "shoes",
+      "name": "Обувь"
+    },
+    {
+      "id": "bags",
+      "name": "Сумки"
     }
   ]
 }
